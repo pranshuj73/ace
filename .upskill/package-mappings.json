@@ -1,0 +1,22 @@
+{
+  "vercel-react-best-practices": ["react", "react-dom", "next"],
+  "web-design-guidelines": ["react", "next"],
+  "remotion-best-practices": ["remotion"],
+  "upgrading-expo": ["expo"],
+  "use-dom": ["expo", "react-native"],
+  "building-ui": ["expo", "react-native"],
+  "better-auth-best-practices": ["better-auth"],
+  "data-fetching": ["expo", "react-native"],
+  "react-native-best-practices": ["react-native"],
+  "dev-client": ["expo"],
+  "deployment": ["expo"],
+  "api-routes": ["expo"],
+  "cicd-workflows": [],
+  "tailwind-setup": ["tailwindcss"],
+  "agent-browser": [],
+  "create-auth-skill": ["better-auth"],
+  "copywriting": [],
+  "seo-audit": [],
+  "marketing-psychology": [],
+  "programmatic-seo": []
+}

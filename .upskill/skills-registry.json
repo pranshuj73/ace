@@ -1,0 +1,1330 @@
+{
+  "skills": [
+    {
+      "id": "vercel-react-best-practices",
+      "title": "Vercel React Best Practices",
+      "description": "Vercel React Best Practices skill for react, react-dom, next from vercel-labs/agent-skills",
+      "repo": "vercel-labs/agent-skills",
+      "tags": [
+        "react",
+        "nextjs",
+        "best-practices",
+        "vercel"
+      ],
+      "targetPackages": [
+        "react",
+        "react-dom",
+        "next"
+      ],
+      "installs": 25500
+    },
+    {
+      "id": "web-design-guidelines",
+      "title": "Web Design Guidelines",
+      "description": "Web Design Guidelines skill for react, next from vercel-labs/agent-skills",
+      "repo": "vercel-labs/agent-skills",
+      "tags": [
+        "react",
+        "nextjs",
+        "ui",
+        "frontend",
+        "vercel"
+      ],
+      "targetPackages": [
+        "react",
+        "next"
+      ],
+      "installs": 19200
+    },
+    {
+      "id": "remotion-best-practices",
+      "title": "Remotion Best Practices",
+      "description": "Remotion Best Practices skill for remotion from remotion-dev/skills",
+      "repo": "remotion-dev/skills",
+      "tags": [
+        "remotion",
+        "video",
+        "best-practices"
+      ],
+      "targetPackages": [
+        "remotion"
+      ],
+      "installs": 2200
+    },
+    {
+      "id": "upgrading-expo",
+      "title": "Upgrading Expo",
+      "description": "Upgrading Expo skill for expo from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native"
+      ],
+      "targetPackages": [
+        "expo"
+      ],
+      "installs": 1500
+    },
+    {
+      "id": "use-dom",
+      "title": "Use Dom",
+      "description": "Use Dom skill for expo, react-native from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "react-native",
+        "expo"
+      ],
+      "targetPackages": [
+        "expo",
+        "react-native"
+      ],
+      "installs": 1200
+    },
+    {
+      "id": "building-ui",
+      "title": "Building Ui",
+      "description": "Building Ui skill for expo, react-native from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "react-native",
+        "expo",
+        "ui",
+        "frontend"
+      ],
+      "targetPackages": [
+        "expo",
+        "react-native"
+      ],
+      "installs": 1200
+    },
+    {
+      "id": "skill-creator",
+      "title": "Skill Creator",
+      "description": "Skill Creator skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 1100
+    },
+    {
+      "id": "frontend-design",
+      "title": "Frontend Design",
+      "description": "Frontend Design skill for react, react-dom from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "react",
+        "ui",
+        "frontend",
+        "anthropic"
+      ],
+      "targetPackages": [
+        "react",
+        "react-dom"
+      ],
+      "installs": 1100
+    },
+    {
+      "id": "better-auth-best-practices",
+      "title": "Better Auth Best Practices",
+      "description": "Better Auth Best Practices skill for better-auth from better-auth/skills",
+      "repo": "better-auth/skills",
+      "tags": [
+        "best-practices",
+        "authentication"
+      ],
+      "targetPackages": [
+        "better-auth"
+      ],
+      "installs": 1100
+    },
+    {
+      "id": "data-fetching",
+      "title": "Data Fetching",
+      "description": "Data Fetching skill for expo, react-native from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "react-native",
+        "expo",
+        "data-fetching"
+      ],
+      "targetPackages": [
+        "expo",
+        "react-native"
+      ],
+      "installs": 1100
+    },
+    {
+      "id": "react-native-best-practices",
+      "title": "React Native Best Practices",
+      "description": "React Native Best Practices skill for react-native from callstackincubator/agent-skills",
+      "repo": "callstackincubator/agent-skills",
+      "tags": [
+        "react-native",
+        "best-practices"
+      ],
+      "targetPackages": [
+        "react-native"
+      ],
+      "installs": 1000
+    },
+    {
+      "id": "dev-client",
+      "title": "Dev Client",
+      "description": "Dev Client skill for expo from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native"
+      ],
+      "targetPackages": [
+        "expo"
+      ],
+      "installs": 1000
+    },
+    {
+      "id": "deployment",
+      "title": "Deployment",
+      "description": "Deployment skill for expo from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native",
+        "deployment",
+        "devops"
+      ],
+      "targetPackages": [
+        "expo"
+      ],
+      "installs": 975
+    },
+    {
+      "id": "api-routes",
+      "title": "Api Routes",
+      "description": "Api Routes skill for expo from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native",
+        "api",
+        "backend"
+      ],
+      "targetPackages": [
+        "expo"
+      ],
+      "installs": 938
+    },
+    {
+      "id": "cicd-workflows",
+      "title": "Cicd Workflows",
+      "description": "Cicd Workflows skill from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "cicd",
+        "devops"
+      ],
+      "targetPackages": [],
+      "installs": 903
+    },
+    {
+      "id": "tailwind-setup",
+      "title": "Tailwind Setup",
+      "description": "Tailwind Setup skill for tailwindcss from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "tailwindcss",
+        "styling"
+      ],
+      "targetPackages": [
+        "tailwindcss"
+      ],
+      "installs": 874
+    },
+    {
+      "id": "agent-browser",
+      "title": "Agent Browser",
+      "description": "Agent Browser skill from vercel-labs/agent-browser",
+      "repo": "vercel-labs/agent-browser",
+      "tags": [
+        "vercel"
+      ],
+      "targetPackages": [],
+      "installs": 806
+    },
+    {
+      "id": "create-auth-skill",
+      "title": "Create Auth Skill",
+      "description": "Create Auth Skill skill for better-auth from better-auth/skills",
+      "repo": "better-auth/skills",
+      "tags": [
+        "authentication"
+      ],
+      "targetPackages": [
+        "better-auth"
+      ],
+      "installs": 753
+    },
+    {
+      "id": "copywriting",
+      "title": "Copywriting",
+      "description": "Copywriting skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 606
+    },
+    {
+      "id": "seo-audit",
+      "title": "Seo Audit",
+      "description": "Seo Audit skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [
+        "seo",
+        "marketing",
+        "security"
+      ],
+      "targetPackages": [],
+      "installs": 589
+    },
+    {
+      "id": "baoyu-article-illustrator",
+      "title": "Baoyu Article Illustrator",
+      "description": "Baoyu Article Illustrator skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 534
+    },
+    {
+      "id": "baoyu-slide-deck",
+      "title": "Baoyu Slide Deck",
+      "description": "Baoyu Slide Deck skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 522
+    },
+    {
+      "id": "baoyu-cover-image",
+      "title": "Baoyu Cover Image",
+      "description": "Baoyu Cover Image skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 512
+    },
+    {
+      "id": "marketing-psychology",
+      "title": "Marketing Psychology",
+      "description": "Marketing Psychology skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [
+        "seo",
+        "marketing"
+      ],
+      "targetPackages": [],
+      "installs": 485
+    },
+    {
+      "id": "programmatic-seo",
+      "title": "Programmatic Seo",
+      "description": "Programmatic Seo skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [
+        "seo",
+        "marketing"
+      ],
+      "targetPackages": [],
+      "installs": 483
+    },
+    {
+      "id": "baoyu-comic",
+      "title": "Baoyu Comic",
+      "description": "Baoyu Comic skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 475
+    },
+    {
+      "id": "baoyu-xhs-images",
+      "title": "Baoyu Xhs Images",
+      "description": "Baoyu Xhs Images skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 467
+    },
+    {
+      "id": "pdf",
+      "title": "Pdf",
+      "description": "Pdf skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "file-handling",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 463
+    },
+    {
+      "id": "marketing-ideas",
+      "title": "Marketing Ideas",
+      "description": "Marketing Ideas skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [
+        "seo",
+        "marketing"
+      ],
+      "targetPackages": [],
+      "installs": 459
+    },
+    {
+      "id": "building-native-ui",
+      "title": "Building Native Ui",
+      "description": "Building Native Ui skill for expo, react-native from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "react-native",
+        "expo",
+        "ui",
+        "frontend"
+      ],
+      "targetPackages": [
+        "expo",
+        "react-native"
+      ],
+      "installs": 445
+    },
+    {
+      "id": "copy-editing",
+      "title": "Copy Editing",
+      "description": "Copy Editing skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 445
+    },
+    {
+      "id": "page-cro",
+      "title": "Page Cro",
+      "description": "Page Cro skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 439
+    },
+    {
+      "id": "social-content",
+      "title": "Social Content",
+      "description": "Social Content skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 431
+    },
+    {
+      "id": "baoyu-post-to-wechat",
+      "title": "Baoyu Post To Wechat",
+      "description": "Baoyu Post To Wechat skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 427
+    },
+    {
+      "id": "pricing-strategy",
+      "title": "Pricing Strategy",
+      "description": "Pricing Strategy skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 427
+    },
+    {
+      "id": "competitor-alternatives",
+      "title": "Competitor Alternatives",
+      "description": "Competitor Alternatives skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 418
+    },
+    {
+      "id": "baoyu-post-to-x",
+      "title": "Baoyu Post To X",
+      "description": "Baoyu Post To X skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 417
+    },
+    {
+      "id": "launch-strategy",
+      "title": "Launch Strategy",
+      "description": "Launch Strategy skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 412
+    },
+    {
+      "id": "email-sequence",
+      "title": "Email Sequence",
+      "description": "Email Sequence skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 405
+    },
+    {
+      "id": "onboarding-cro",
+      "title": "Onboarding Cro",
+      "description": "Onboarding Cro skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 402
+    },
+    {
+      "id": "analytics-tracking",
+      "title": "Analytics Tracking",
+      "description": "Analytics Tracking skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 392
+    },
+    {
+      "id": "signup-flow-cro",
+      "title": "Signup Flow Cro",
+      "description": "Signup Flow Cro skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 392
+    },
+    {
+      "id": "schema-markup",
+      "title": "Schema Markup",
+      "description": "Schema Markup skill for next, react, react-dom from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [
+        "react",
+        "nextjs"
+      ],
+      "targetPackages": [
+        "next",
+        "react",
+        "react-dom"
+      ],
+      "installs": 391
+    },
+    {
+      "id": "xlsx",
+      "title": "Xlsx",
+      "description": "Xlsx skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "file-handling",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 390
+    },
+    {
+      "id": "pptx",
+      "title": "Pptx",
+      "description": "Pptx skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "file-handling",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 384
+    },
+    {
+      "id": "form-cro",
+      "title": "Form Cro",
+      "description": "Form Cro skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 384
+    },
+    {
+      "id": "free-tool-strategy",
+      "title": "Free Tool Strategy",
+      "description": "Free Tool Strategy skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 382
+    },
+    {
+      "id": "native-data-fetching",
+      "title": "Native Data Fetching",
+      "description": "Native Data Fetching skill for expo, react-native from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "react-native",
+        "expo",
+        "data-fetching"
+      ],
+      "targetPackages": [
+        "expo",
+        "react-native"
+      ],
+      "installs": 378
+    },
+    {
+      "id": "brainstorming",
+      "title": "Brainstorming",
+      "description": "Brainstorming skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 377
+    },
+    {
+      "id": "webapp-testing",
+      "title": "Webapp Testing",
+      "description": "Webapp Testing skill for react from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "react",
+        "testing",
+        "anthropic"
+      ],
+      "targetPackages": [
+        "react"
+      ],
+      "installs": 376
+    },
+    {
+      "id": "paid-ads",
+      "title": "Paid Ads",
+      "description": "Paid Ads skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 376
+    },
+    {
+      "id": "referral-program",
+      "title": "Referral Program",
+      "description": "Referral Program skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 375
+    },
+    {
+      "id": "expo-api-routes",
+      "title": "Expo Api Routes",
+      "description": "Expo Api Routes skill for expo from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native",
+        "api",
+        "backend"
+      ],
+      "targetPackages": [
+        "expo"
+      ],
+      "installs": 374
+    },
+    {
+      "id": "paywall-upgrade-cro",
+      "title": "Paywall Upgrade Cro",
+      "description": "Paywall Upgrade Cro skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 373
+    },
+    {
+      "id": "mcp-builder",
+      "title": "Mcp Builder",
+      "description": "Mcp Builder skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "ui",
+        "frontend",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 372
+    },
+    {
+      "id": "popup-cro",
+      "title": "Popup Cro",
+      "description": "Popup Cro skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 369
+    },
+    {
+      "id": "ab-test-setup",
+      "title": "Ab Test Setup",
+      "description": "Ab Test Setup skill from coreyhaines31/marketingskills",
+      "repo": "coreyhaines31/marketingskills",
+      "tags": [
+        "testing"
+      ],
+      "targetPackages": [],
+      "installs": 368
+    },
+    {
+      "id": "expo-deployment",
+      "title": "Expo Deployment",
+      "description": "Expo Deployment skill for expo from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native",
+        "deployment",
+        "devops"
+      ],
+      "targetPackages": [
+        "expo"
+      ],
+      "installs": 366
+    },
+    {
+      "id": "expo-dev-client",
+      "title": "Expo Dev Client",
+      "description": "Expo Dev Client skill for expo from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native"
+      ],
+      "targetPackages": [
+        "expo"
+      ],
+      "installs": 364
+    },
+    {
+      "id": "docx",
+      "title": "Docx",
+      "description": "Docx skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "file-handling",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 361
+    },
+    {
+      "id": "expo-tailwind-setup",
+      "title": "Expo Tailwind Setup",
+      "description": "Expo Tailwind Setup skill for expo, tailwindcss from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native",
+        "tailwindcss",
+        "styling"
+      ],
+      "targetPackages": [
+        "expo",
+        "tailwindcss"
+      ],
+      "installs": 356
+    },
+    {
+      "id": "humanizer-zh",
+      "title": "Humanizer Zh",
+      "description": "Humanizer Zh skill from op7418/humanizer-zh",
+      "repo": "op7418/humanizer-zh",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 356
+    },
+    {
+      "id": "expo-cicd-workflows",
+      "title": "Expo Cicd Workflows",
+      "description": "Expo Cicd Workflows skill for expo from expo/skills",
+      "repo": "expo/skills",
+      "tags": [
+        "expo",
+        "react-native",
+        "cicd",
+        "devops"
+      ],
+      "targetPackages": [
+        "expo"
+      ],
+      "installs": 348
+    },
+    {
+      "id": "canvas-design",
+      "title": "Canvas Design",
+      "description": "Canvas Design skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "ui",
+        "frontend",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 343
+    },
+    {
+      "id": "release-skills",
+      "title": "Release Skills",
+      "description": "Release Skills skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 330
+    },
+    {
+      "id": "test-driven-development",
+      "title": "Test Driven Development",
+      "description": "Test Driven Development skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [
+        "testing"
+      ],
+      "targetPackages": [],
+      "installs": 319
+    },
+    {
+      "id": "baoyu-danger-gemini-web",
+      "title": "Baoyu Danger Gemini Web",
+      "description": "Baoyu Danger Gemini Web skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 317
+    },
+    {
+      "id": "baoyu-compress-image",
+      "title": "Baoyu Compress Image",
+      "description": "Baoyu Compress Image skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 307
+    },
+    {
+      "id": "theme-factory",
+      "title": "Theme Factory",
+      "description": "Theme Factory skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 302
+    },
+    {
+      "id": "systematic-debugging",
+      "title": "Systematic Debugging",
+      "description": "Systematic Debugging skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 293
+    },
+    {
+      "id": "baoyu-danger-x-to-markdown",
+      "title": "Baoyu Danger X To Markdown",
+      "description": "Baoyu Danger X To Markdown skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 290
+    },
+    {
+      "id": "doc-coauthoring",
+      "title": "Doc Coauthoring",
+      "description": "Doc Coauthoring skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "authentication",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 288
+    },
+    {
+      "id": "vue",
+      "title": "Vue",
+      "description": "Vue skill for vue from onmax/nuxt-skills",
+      "repo": "onmax/nuxt-skills",
+      "tags": [
+        "vue"
+      ],
+      "targetPackages": [
+        "vue"
+      ],
+      "installs": 280
+    },
+    {
+      "id": "verification-before-completion",
+      "title": "Verification Before Completion",
+      "description": "Verification Before Completion skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 276
+    },
+    {
+      "id": "executing-plans",
+      "title": "Executing Plans",
+      "description": "Executing Plans skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 276
+    },
+    {
+      "id": "writing-skills",
+      "title": "Writing Skills",
+      "description": "Writing Skills skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 269
+    },
+    {
+      "id": "internal-comms",
+      "title": "Internal Comms",
+      "description": "Internal Comms skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 268
+    },
+    {
+      "id": "subagent-driven-development",
+      "title": "Subagent Driven Development",
+      "description": "Subagent Driven Development skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 265
+    },
+    {
+      "id": "brand-guidelines",
+      "title": "Brand Guidelines",
+      "description": "Brand Guidelines skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "ui",
+        "frontend",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 264
+    },
+    {
+      "id": "writing-plans",
+      "title": "Writing Plans",
+      "description": "Writing Plans skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 263
+    },
+    {
+      "id": "requesting-code-review",
+      "title": "Requesting Code Review",
+      "description": "Requesting Code Review skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 256
+    },
+    {
+      "id": "web-artifacts-builder",
+      "title": "Web Artifacts Builder",
+      "description": "Web Artifacts Builder skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "ui",
+        "frontend",
+        "typescript",
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 254
+    },
+    {
+      "id": "ui-ux-pro-max",
+      "title": "Ui Ux Pro Max",
+      "description": "Ui Ux Pro Max skill from nextlevelbuilder/ui-ux-pro-max-skill",
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "tags": [
+        "ui",
+        "frontend"
+      ],
+      "targetPackages": [],
+      "installs": 254
+    },
+    {
+      "id": "dispatching-parallel-agents",
+      "title": "Dispatching Parallel Agents",
+      "description": "Dispatching Parallel Agents skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 253
+    },
+    {
+      "id": "algorithmic-art",
+      "title": "Algorithmic Art",
+      "description": "Algorithmic Art skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 249
+    },
+    {
+      "id": "using-superpowers",
+      "title": "Using Superpowers",
+      "description": "Using Superpowers skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 245
+    },
+    {
+      "id": "nuxt",
+      "title": "Nuxt",
+      "description": "Nuxt skill for nuxt, vue from onmax/nuxt-skills",
+      "repo": "onmax/nuxt-skills",
+      "tags": [
+        "vue",
+        "nuxt"
+      ],
+      "targetPackages": [
+        "nuxt",
+        "vue"
+      ],
+      "installs": 245
+    },
+    {
+      "id": "receiving-code-review",
+      "title": "Receiving Code Review",
+      "description": "Receiving Code Review skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 241
+    },
+    {
+      "id": "template-skill",
+      "title": "Template Skill",
+      "description": "Template Skill skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 238
+    },
+    {
+      "id": "slack-gif-creator",
+      "title": "Slack Gif Creator",
+      "description": "Slack Gif Creator skill from anthropics/skills",
+      "repo": "anthropics/skills",
+      "tags": [
+        "anthropic"
+      ],
+      "targetPackages": [],
+      "installs": 237
+    },
+    {
+      "id": "using-git-worktrees",
+      "title": "Using Git Worktrees",
+      "description": "Using Git Worktrees skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 228
+    },
+    {
+      "id": "finishing-a-development-branch",
+      "title": "Finishing A Development Branch",
+      "description": "Finishing A Development Branch skill from obra/superpowers",
+      "repo": "obra/superpowers",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 227
+    },
+    {
+      "id": "better-auth-best-practices",
+      "title": "Better Auth Best Practices",
+      "description": "Better Auth Best Practices skill for better-auth from better-auth/skills",
+      "repo": "better-auth/skills",
+      "tags": [
+        "best-practices",
+        "authentication"
+      ],
+      "targetPackages": [
+        "better-auth"
+      ],
+      "installs": 206
+    },
+    {
+      "id": "nuxt-ui",
+      "title": "Nuxt Ui",
+      "description": "Nuxt Ui skill for nuxt, vue from onmax/nuxt-skills",
+      "repo": "onmax/nuxt-skills",
+      "tags": [
+        "vue",
+        "nuxt",
+        "ui",
+        "frontend"
+      ],
+      "targetPackages": [
+        "nuxt",
+        "vue"
+      ],
+      "installs": 200
+    },
+    {
+      "id": "ts-library",
+      "title": "Ts Library",
+      "description": "Ts Library skill for typescript from onmax/nuxt-skills",
+      "repo": "onmax/nuxt-skills",
+      "tags": [
+        "typescript"
+      ],
+      "targetPackages": [
+        "typescript"
+      ],
+      "installs": 166
+    },
+    {
+      "id": "reka-ui",
+      "title": "Reka Ui",
+      "description": "Reka Ui skill for reka-ui, react from onmax/nuxt-skills",
+      "repo": "onmax/nuxt-skills",
+      "tags": [
+        "react",
+        "ui",
+        "frontend"
+      ],
+      "targetPackages": [
+        "reka-ui",
+        "react"
+      ],
+      "installs": 150
+    },
+    {
+      "id": "planning-with-files",
+      "title": "Planning With Files",
+      "description": "Planning With Files skill from othmanadi/planning-with-files",
+      "repo": "othmanadi/planning-with-files",
+      "tags": [
+        "file-handling"
+      ],
+      "targetPackages": [],
+      "installs": 148
+    },
+    {
+      "id": "create-auth-skill",
+      "title": "Create Auth Skill",
+      "description": "Create Auth Skill skill for better-auth from better-auth/skills",
+      "repo": "better-auth/skills",
+      "tags": [
+        "authentication"
+      ],
+      "targetPackages": [
+        "better-auth"
+      ],
+      "installs": 134
+    },
+    {
+      "id": "elysiajs",
+      "title": "Elysiajs",
+      "description": "Elysiajs skill for elysia from elysiajs/skills",
+      "repo": "elysiajs/skills",
+      "tags": [
+        "elysia",
+        "backend"
+      ],
+      "targetPackages": [
+        "elysia"
+      ],
+      "installs": 129
+    },
+    {
+      "id": "baoyu-gemini-web",
+      "title": "Baoyu Gemini Web",
+      "description": "Baoyu Gemini Web skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 128
+    },
+    {
+      "id": "obsidian-markdown",
+      "title": "Obsidian Markdown",
+      "description": "Obsidian Markdown skill from kepano/obsidian-skills",
+      "repo": "kepano/obsidian-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 126
+    },
+    {
+      "id": "valyu-best-practices",
+      "title": "Valyu Best Practices",
+      "description": "Valyu Best Practices skill from valyu-network/skills",
+      "repo": "valyu-network/skills",
+      "tags": [
+        "best-practices"
+      ],
+      "targetPackages": [],
+      "installs": 126
+    },
+    {
+      "id": "baoyu-infographic",
+      "title": "Baoyu Infographic",
+      "description": "Baoyu Infographic skill from jimliu/baoyu-skills",
+      "repo": "jimliu/baoyu-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 113
+    },
+    {
+      "id": "obsidian-bases",
+      "title": "Obsidian Bases",
+      "description": "Obsidian Bases skill from kepano/obsidian-skills",
+      "repo": "kepano/obsidian-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 112
+    },
+    {
+      "id": "ui-skills",
+      "title": "Ui Skills",
+      "description": "Ui Skills skill from ubie-inc/agent-skills",
+      "repo": "ubie-inc/agent-skills",
+      "tags": [
+        "ui",
+        "frontend"
+      ],
+      "targetPackages": [],
+      "installs": 112
+    },
+    {
+      "id": "document-writer",
+      "title": "Document Writer",
+      "description": "Document Writer skill from onmax/nuxt-skills",
+      "repo": "onmax/nuxt-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 111
+    },
+    {
+      "id": "nuxt-modules",
+      "title": "Nuxt Modules",
+      "description": "Nuxt Modules skill for nuxt, vue from onmax/nuxt-skills",
+      "repo": "onmax/nuxt-skills",
+      "tags": [
+        "vue",
+        "nuxt"
+      ],
+      "targetPackages": [
+        "nuxt",
+        "vue"
+      ],
+      "installs": 111
+    },
+    {
+      "id": "json-canvas",
+      "title": "Json Canvas",
+      "description": "Json Canvas skill from kepano/obsidian-skills",
+      "repo": "kepano/obsidian-skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 110
+    },
+    {
+      "id": "ask-questions-if-underspecified",
+      "title": "Ask Questions If Underspecified",
+      "description": "Ask Questions If Underspecified skill from trailofbits/skills",
+      "repo": "trailofbits/skills",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 108
+    },
+    {
+      "id": "logging-best-practices",
+      "title": "Logging Best Practices",
+      "description": "Logging Best Practices skill from boristane/agent-skills",
+      "repo": "boristane/agent-skills",
+      "tags": [
+        "best-practices"
+      ],
+      "targetPackages": [],
+      "installs": 104
+    },
+    {
+      "id": "nuxt-content",
+      "title": "Nuxt Content",
+      "description": "Nuxt Content skill for nuxt, vue from onmax/nuxt-skills",
+      "repo": "onmax/nuxt-skills",
+      "tags": [
+        "vue",
+        "nuxt"
+      ],
+      "targetPackages": [
+        "nuxt",
+        "vue"
+      ],
+      "installs": 104
+    },
+    {
+      "id": "example-skill2",
+      "title": "Example Skill2",
+      "description": "Example Skill2 skill from xryuseix/example-skill2",
+      "repo": "xryuseix/example-skill2",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 216
+    },
+    {
+      "id": "commit",
+      "title": "Commit",
+      "description": "Commit skill from vinta/hal-9000",
+      "repo": "vinta/hal-9000",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 900014
+    },
+    {
+      "id": "documentation-lookup",
+      "title": "Documentation Lookup",
+      "description": "Documentation Lookup skill from upstash/context7",
+      "repo": "upstash/context7",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 710
+    },
+    {
+      "id": "understand-codebase",
+      "title": "Understand Codebase",
+      "description": "Understand Codebase skill from vinta/hal-9000",
+      "repo": "vinta/hal-9000",
+      "tags": [],
+      "targetPackages": [],
+      "installs": 90003
+    }
+  ]
+}
