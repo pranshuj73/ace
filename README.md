@@ -1,139 +1,86 @@
-## Upskill CLI (open-source skills)
+# Upskill Monorepo
 
-**Goal**: An open-source skills ecosystem and CLI that suggests and manages AI agent skills based on your codebase (starting with Cursor-focused workflows).
+Open-source skills ecosystem for AI agents - API server and CLI.
 
-### Install & Run
+## Structure
 
-- **npx / bunx style** (once published):
-  - `npx upskill-cli suggest`
-  - `bunx upskill-cli suggest`
-
-For now, clone the repo and run:
-
-- `bun install` / `npm install` / `yarn install`
-- `bun run build` / `npm run build`
-- `bun run dist/index.cjs suggest` / `node dist/index.cjs suggest`
-
-### Commands
-
-- **`upskill suggest`**:
-  - Reads `package.json` in the current directory.
-  - Loads `.upskill/skills-registry.json`.
-  - Suggests skills whose `targetPackages` intersect with your dependencies.
-  - Options:
-    - `--agents cursor gemini windsurf agent` (select one or more target agents)
-    - `--scope project|global` (installation scope, currently informational)
-
-- **`upskill review`**:
-  - Reviews and displays all mapped skills in the registry.
-  - Useful for verifying inference quality and identifying skills that need manual mapping.
-  - Options:
-    - `--filter mapped|unmapped|all` (filter by mapping status, default: `all`)
-    - `--package <name>` (filter by target package, e.g., `--package react`)
-    - `--tag <name>` (filter by tag, e.g., `--tag frontend`)
-    - `--limit <n>` (limit number of skills shown)
-    - `--stats` (show statistics summary only)
-
-  Examples:
-  ```bash
-  # Review all skills
-  upskill review
-
-  # Show only unmapped skills (need manual mapping)
-  upskill review --filter unmapped
-
-  # Show skills targeting React
-  upskill review --package react
-
-  # Show statistics only
-  upskill review --stats
-
-  # Show first 20 unmapped skills
-  upskill review --filter unmapped --limit 20
-  ```
-
-### Registry format
-
-The local registry lives at `.upskill/skills-registry.json`:
-
-```json
-{
-  "skills": [
-    {
-      "id": "vercel-react-best-practices",
-      "title": "Vercel React Best Practices",
-      "description": "Guidance for building high-quality React apps on Vercel with modern best practices.",
-      "repo": "vercel-labs/agent-skills",
-      "tags": ["react", "vercel", "frontend"],
-      "targetPackages": ["react", "react-dom", "next"]
-    }
-  ]
-}
+```
+upskill/
+├── apps/
+│   ├── api/          # Elysia API server
+│   └── cli/          # CLI tool
+├── docs/             # Architecture documentation
+└── scraped.json      # Scraped skills data
 ```
 
-### Building the Registry
+## Setup
 
-The registry is built from scraped skills data:
+### Install dependencies
 
-1. **Scrape skills from skills.sh** (using the browser console script - see below)
-2. **Save the output** as `scraped.json` in the project root
-3. **Build the registry**:
-   ```bash
-   bun run build-registry
-   # or: npm run build-registry
-   ```
-
-This will:
-- Filter skills with < 100 installs
-- Extract repo information from hrefs
-- Infer `targetPackages` using heuristics and manual mappings
-- Write the registry to `.upskill/skills-registry.json`
-
-**Package Mappings**: Manual overrides and heuristics are defined in `.upskill/package-mappings.json`. You can edit this file to add or refine package mappings for specific skills.
-
-**Reviewing Mappings**: After building the registry, use `upskill review` to:
-- See which skills have been mapped vs. which need manual mapping
-- Filter by package, tag, or mapping status
-- View statistics about the registry
-- Identify skills that might need manual mapping in `package-mappings.json`
-
-**Heuristics used**:
-- Skill name patterns (e.g., "react-native-best-practices" → `["react-native"]`)
-- Repo owner patterns (e.g., "expo/skills" → `["expo"]`)
-- Manual mappings (from `package-mappings.json`)
-
-### Browser Scraper Script
-
-To scrape skills from the skills.sh dashboard, paste this in the browser console:
-
-```javascript
-(() => {
-  const norm = (s) => s.replace(/\s+/g, " ").trim();
-  const container = document.querySelector("div.divide-y.divide-border");
-  if (!container) {
-    console.error("Could not find leaderboard container.");
-    return;
-  }
-  const anchors = Array.from(container.querySelectorAll("a[href^='/'][href*='/']"));
-  const skills = anchors.map((a, idx) => {
-    const text = norm(a.textContent || "");
-    const href = a.getAttribute("href") || "";
-    const parts = text.split(/\s+/);
-    const rank = parseInt(parts[0]) || idx + 1;
-    const name = href.split("/").pop() || "";
-    const repoMatch = href.match(/^\/([^/]+\/[^/]+)\//);
-    const repo = repoMatch ? repoMatch[1] : "";
-    const installsMatch = text.match(/(\d+(?:\.\d+)?[KkMm]?)\s*$/);
-    const installs = installsMatch ? installsMatch[1] : null;
-    return { rank, name, repo, installs, href, rawText: text };
-  });
-  console.log(JSON.stringify(skills, null, 2));
-  console.log(`\n✅ Scraped ${skills.length} skills. Copy the JSON above.`);
-})();
+```bash
+bun install
 ```
 
-Future versions will:
+### Development
 
-- Support richer manifest metadata (e.g. SKILL.md-like content, resources).
-- Implement actual installation/materialization into `.cursor`, `.agent`, `.gemini`, `.windsurf` with configurable scopes.
+**From root (recommended):**
+```bash
+# Run API server
+bun run dev:api
+# Server runs on http://localhost:3000
 
+# Run CLI
+bun run dev:cli
+
+# Run both (if needed)
+bun run dev
+```
+
+**Or from individual apps:**
+```bash
+# API Server
+cd apps/api && bun run dev
+
+# CLI
+cd apps/cli && bun run dev
+```
+
+## Building
+
+```bash
+# Build all apps
+bun run build
+
+# Build specific app
+bun run build:api
+bun run build:cli
+```
+
+## Scripts Reference
+
+- `bun run dev:api` - Start API server in dev mode
+- `bun run dev:cli` - Run CLI in dev mode
+- `bun run build:api` - Build API server
+- `bun run build:cli` - Build CLI
+- `bun run start:api` - Start built API server
+- `bun run typecheck` - Type check all apps
+- `bun run typecheck:api` - Type check API only
+- `bun run typecheck:cli` - Type check CLI only
+
+## API Endpoints
+
+- `GET /` - API info
+- `GET /health` - Health check
+- `GET /api/v1/skills/suggest` - Suggest skills (coming soon)
+- `GET /api/v1/skills/:skillId` - Get skill details (coming soon)
+- `GET /api/v1/packages/:packageName/skills` - Get skills for package (coming soon)
+- `GET /api/v1/stats` - Registry statistics (coming soon)
+
+## CLI Commands
+
+- `upskill suggest` - Suggest skills based on package.json
+- `upskill review` - Review mapped skills
+
+## Environment Variables
+
+- `UPSKILL_API_URL` - API base URL (default: http://localhost:3000)

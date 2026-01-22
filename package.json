@@ -1,0 +1,24 @@
+{
+  "name": "upskill-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter=* dev",
+    "dev:api": "bun run --filter=@upskill/api dev",
+    "dev:cli": "bun run --filter=@upskill/cli dev",
+    "build": "bun run --filter=* build",
+    "build:api": "bun run --filter=@upskill/api build",
+    "build:cli": "bun run --filter=@upskill/cli build",
+    "start:api": "bun run --filter=@upskill/api start",
+    "typecheck": "bun run --filter=* typecheck",
+    "typecheck:api": "bun run --filter=@upskill/api typecheck",
+    "typecheck:cli": "bun run --filter=@upskill/cli typecheck"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
