@@ -74,7 +74,6 @@ bun run build:cli
 - `GET /api/v1/skills/suggest` - Suggest skills (coming soon)
 - `GET /api/v1/skills/:skillId` - Get skill details (coming soon)
 - `GET /api/v1/packages/:packageName/skills` - Get skills for package (coming soon)
-- `GET /api/v1/stats` - Registry statistics (coming soon)
 
 ## CLI Commands
 
