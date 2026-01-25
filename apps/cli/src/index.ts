@@ -2,25 +2,11 @@
 
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-
-const API_BASE = process.env.UPSKILL_API_URL || "http://localhost:3000";
-
-async function suggestSkills(packages: string[], installedSkills: string[] = []) {
-  const params = new URLSearchParams();
-  packages.forEach((pkg) => params.append("packages", pkg));
-  installedSkills.forEach((skill) => params.append("installed_skills", skill));
-
-  try {
-    const response = await fetch(`${API_BASE}/api/v1/skills/suggest?${params}`);
-    if (!response.ok) {
-      throw new Error(`API error: ${response.statusText}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Failed to fetch suggestions:", error);
-    process.exit(1);
-  }
-}
+import { cwd } from "node:process";
+import { readPackageJson } from "./utils/package-json";
+import { getInstalledSkills, type AgentId } from "./utils/installed-skills";
+import { suggestSkills } from "./utils/api";
+import { displaySuggestions } from "./utils/display";
 
 function main() {
   yargs(hideBin(process.argv))
@@ -33,17 +19,61 @@ function main() {
           .option("agents", {
             type: "array",
             describe: "Target agents (cursor, gemini, windsurf, agent)",
+            default: ["cursor", "gemini", "windsurf", "agent"],
           })
           .option("scope", {
             type: "string",
             choices: ["project", "global"] as const,
             default: "project",
             describe: "Installation scope",
+          })
+          .option("limit", {
+            type: "number",
+            default: 10,
+            describe: "Maximum number of suggestions to return",
           }),
       async (args) => {
-        // TODO: Read package.json and detect installed skills
-        console.log("Suggest command - coming soon!");
-        console.log("API base:", API_BASE);
+        try {
+          const currentDir = cwd();
+          const [packages, installedSkills] = await Promise.all([
+            readPackageJson(currentDir),
+            Promise.resolve(
+              getInstalledSkills(
+                currentDir,
+                (args.agents || []) as AgentId[],
+                args.scope,
+              ),
+            ),
+          ]);
+
+          if (packages.length === 0 && installedSkills.length === 0) {
+            console.log(
+              "No packages found in package.json and no installed skills detected.",
+            );
+            console.log("Make sure you're in a project directory with a package.json file.");
+            process.exit(0);
+          }
+
+          if (packages.length > 0) {
+            console.log(`Found ${packages.length} package(s) in package.json`);
+          }
+          if (installedSkills.length > 0) {
+            console.log(
+              `Found ${installedSkills.length} installed skill(s)`,
+            );
+          }
+
+          console.log("\nFetching suggestions...");
+          const data = await suggestSkills(
+            packages,
+            installedSkills,
+            args.limit,
+          );
+          displaySuggestions(data);
+        } catch (error) {
+          console.error("Error:", error instanceof Error ? error.message : error);
+          process.exit(1);
+        }
       },
     )
     .command(
