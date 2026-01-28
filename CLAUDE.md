@@ -1,0 +1,221 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Upskill is a **hybrid AI agent skill discovery CLI** that intelligently suggests skills based on your tech stack. It combines:
+- **Vercel's skills.sh API** for real-time skill data
+- **Smart package analysis** from package.json
+- **Installed skills detection** across multiple agents
+- **Intelligent ranking** based on relevance and popularity
+
+## Monorepo Structure
+
+```
+upskill/
+├── apps/
+│   ├── api/          # Elysia API server (optional, for future enhancements)
+│   └── cli/          # Main CLI tool ✨
+├── docs/             # Architecture documentation
+├── skills-main/      # Vercel's official skills CLI (for reference)
+└── config.ts         # Shared configuration
+```
+
+## Development Commands
+
+### From Root (Recommended)
+```bash
+# Install dependencies
+bun install
+
+# Run CLI (main feature)
+bun run dev:cli
+
+# Test the suggest command
+bun run dev:cli suggest
+
+# Type check
+bun run typecheck
+```
+
+### CLI-Specific
+```bash
+cd apps/cli
+bun run dev          # Run CLI
+bun run build        # Build for production
+bun run typecheck    # Type check only
+```
+
+## Tech Stack
+
+- **Runtime**: Bun (primary), Node.js (compatible)
+- **CLI Framework**: yargs
+- **External API**: Vercel skills.sh API
+- **Language**: TypeScript
+
+## CLI Commands
+
+### `upskill suggest` ✨ (Main Feature)
+
+Intelligently suggests skills based on your project's dependencies and installed skills.
+
+**How it works:**
+1. Reads `package.json` to extract dependencies
+2. Scans for installed skills in `.cursor/skills/`, `.gemini/skills/`, etc.
+3. Searches Vercel's API for relevant skills
+4. Ranks by relevance (package matches > installed matches > installs)
+5. Displays formatted results with installation commands
+
+**Options:**
+- `--agents <agents>` - Target agents (default: cursor, gemini, windsurf, agent)
+- `--scope <project|global>` - Installation scope (default: project)
+- `--limit <number>` - Max results (default: 10)
+
+**Example:**
+```bash
+bun run dev:cli suggest --limit 15 --scope global
+```
+
+### Other Commands (Coming Soon)
+
+- `upskill review` - Review skills in registry
+- `upskill discover` - Auto-discover missing skills for your stack
+
+## Architecture
+
+### Hybrid API Strategy
+
+The CLI uses a **three-tier approach**:
+
+1. **Vercel API (Primary)**
+   - `GET https://skills.sh/api/search?q={query}&limit={n}`
+   - `POST https://skills.sh/api/skills/search` (fuzzy matching)
+   - No database maintenance required
+   - Always up-to-date with skills.sh registry
+
+2. **Own API (Optional Enhancement)**
+   - Falls back if Vercel API is unavailable
+   - Pre-computed package → skill mappings
+   - Can be deployed to Cloudflare Workers
+
+3. **Intelligence Layer (Our Secret Sauce)**
+   - Smart relevance scoring
+   - Multi-package detection
+   - Related skills discovery
+   - Deduplication across sources
+
+### Key Files
+
+**CLI Core:**
+- `apps/cli/src/index.ts` - Main entry point with yargs commands
+- `apps/cli/src/utils/suggest.ts` - Orchestration logic for suggestions
+- `apps/cli/src/utils/vercel-api.ts` - Vercel API client
+- `apps/cli/src/utils/display.ts` - Pretty terminal output
+
+**Utilities:**
+- `apps/cli/src/utils/package-json.ts` - Read package.json dependencies
+- `apps/cli/src/utils/installed-skills.ts` - Detect installed skills
+- `apps/cli/src/utils/api.ts` - Our own API client (optional)
+
+### Data Flow
+
+```
+User runs: upskill suggest
+  ↓
+Read package.json → ["react", "next", "typescript"]
+  ↓
+Detect installed skills → ["expo-cli"]
+  ↓
+Search Vercel API in parallel for each package
+  ↓
+Aggregate & rank results by relevance
+  ↓
+Display formatted suggestions with install commands
+```
+
+### Recommendation Logic
+
+**Tier 1: Package.json Matches (Highest Priority)**
+- Direct match: package name → skills
+- Relevance score: `log10(installs) * 100 + 1000`
+- Multi-package boost: +100 per additional package
+
+**Tier 2: Installed Skills Matches**
+- Find source of installed skill
+- Search for related skills from same source
+- Relevance score: `log10(installs) * 100 + 500`
+
+**Tier 3: General Search**
+- Fallback for keyword searches
+- Relevance score: `log10(installs) * 100`
+
+### Skill Detection
+
+The CLI detects installed skills in these locations:
+- **Project-level**: `{cwd}/.{agent}/skills/`
+- **Global-level**: `~/.{agent}/skills/`
+- **Supported agents**: cursor, gemini, windsurf, agent (extensible)
+
+## API Architecture (Optional)
+
+The API server exists for future enhancements but is **not required** for the CLI to work.
+
+### Dual Entry Points
+
+1. **`apps/api/src/index.ts`** - Bun/Node.js
+   - Loads dotenv from `.env`
+   - Starts HTTP server on port 3000
+
+2. **`apps/api/src/cloudflare.ts`** - Cloudflare Workers
+   - Uses Elysia CloudflareAdapter
+   - Gets env from Workers bindings
+
+### Database (Turso/libSQL)
+
+**Environment Variables:**
+- `DATABASE_URL` - Turso database URL
+- `DATABASE_API_TOKEN` - Turso auth token
+
+**Schema:** See `apps/api/src/db/schema.ts`
+- `skills` - Skill metadata
+- `packages` - npm packages
+- `package_skill_asscn` - Many-to-many mappings
+
+**Migrations:**
+```bash
+bunx drizzle-kit generate  # Generate migration
+bunx drizzle-kit push      # Apply to database
+bunx drizzle-kit studio    # Browse database
+```
+
+## Testing
+
+```bash
+# Type check everything
+bun run typecheck
+
+# Test CLI suggest command
+bun run dev:cli suggest
+
+# Test with specific options
+bun run dev:cli suggest --limit 20 --scope global
+```
+
+## Environment Variables
+
+**CLI:**
+- `SKILLS_API_URL` - Override Vercel API base (default: https://skills.sh)
+- `UPSKILL_API_URL` - Our own API URL (optional)
+
+**API (if running):**
+- `DATABASE_URL` - Turso database URL
+- `DATABASE_API_TOKEN` - Turso auth token
+
+## Notes
+
+- The project primarily focuses on the **CLI tool**
+- Vercel's API handles all skill data (no scraping/maintenance)
+- Our value-add is in **intelligent discovery** and **UX**
+- The API server is optional for future enhancements
+- Built with Bun for speed, but Node.js compatible
