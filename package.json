@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "bun run --filter=* dev",
     "dev:api": "bun run --filter=@ace/api dev",
-    "dev:cli": "bun run --filter=@ace/cli dev",
+    "dev:cli": "bun run apps/cli/src/index.ts",
     "build": "bun run --filter=* build",
     "build:api": "bun run --filter=@ace/api build",
     "build:cli": "bun run --filter=@ace/cli build",
