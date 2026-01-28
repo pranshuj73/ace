@@ -3,11 +3,7 @@ import { config } from "../../../../config";
 const API_BASE =
   process.env.UPSKILL_API_URL || config.api.baseUrl;
 
-export async function suggestSkills(
-  packages: string[],
-  installedSkills: string[] = [],
-  limit: number = 10,
-): Promise<{
+export interface OwnAPISuggestion {
   skills: Array<{
     id: number;
     name: string;
@@ -21,7 +17,13 @@ export async function suggestSkills(
   total: number;
   matched_packages: string[];
   matched_installed_skills: string[];
-}> {
+}
+
+export async function suggestSkills(
+  packages: string[],
+  installedSkills: string[] = [],
+  limit: number = 10,
+): Promise<OwnAPISuggestion> {
   try {
     const response = await fetch(`${API_BASE}/api/v1/skills/suggest`, {
       method: "POST",
@@ -40,7 +42,7 @@ export async function suggestSkills(
         `API error (${response.status}): ${errorText || response.statusText}`,
       );
     }
-    return await response.json();
+    return (await response.json()) as OwnAPISuggestion;
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`Failed to fetch suggestions: ${error.message}`);
