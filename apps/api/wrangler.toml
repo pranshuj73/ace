@@ -1,0 +1,8 @@
+name = "upskill-api"
+main = "src/cloudflare.ts"
+compatibility_date = "2025-06-01"
+
+# Environment variables for Cloudflare Workers
+# Set these via: wrangler secret put DATABASE_URL
+# Or use wrangler.toml vars for non-sensitive values
+# For secrets, use: wrangler secret put DATABASE_API_TOKEN
