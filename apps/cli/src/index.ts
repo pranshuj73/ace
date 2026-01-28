@@ -37,34 +37,34 @@ function main() {
         y
           .option("agents", {
             type: "array",
-            describe: "Target agents (cursor, gemini, windsurf, agent)",
-            default: ["cursor", "gemini", "windsurf", "agent"],
+            describe: "Target specific agents (default: auto-detect)",
           })
           .option("scope", {
             type: "string",
-            choices: ["project", "global"] as const,
+            choices: ["project", "global", "both"] as const,
             default: "project",
-            describe: "Installation scope",
+            describe: "Where to look for installed skills",
           })
           .option("limit", {
             type: "number",
             default: 10,
-            describe: "Maximum number of suggestions to return",
+            describe: "Maximum suggestions to show",
           }),
       async (args) => {
         showBanner();
 
         try {
           const currentDir = cwd();
-
-          console.log(`${DIM}Analyzing your project...${RESET}\n`);
+          const agentsToUse = args.agents
+            ? (args.agents as AgentId[])
+            : undefined;
 
           // Quick check for package.json and installed skills
           const packages = await readPackageJson(currentDir);
           const installedSkills = getInstalledSkills(
             currentDir,
-            (args.agents || []) as AgentId[],
-            args.scope as "project" | "global",
+            agentsToUse,
+            args.scope as "project" | "global" | "both",
           );
 
           if (packages.length === 0 && installedSkills.length === 0) {
@@ -105,8 +105,8 @@ function main() {
           // Generate suggestions
           const suggestions = await generateSuggestions(
             currentDir,
-            (args.agents || []) as AgentId[],
-            args.scope as "project" | "global",
+            agentsToUse,
+            args.scope as "project" | "global" | "both",
             args.limit,
           );
 
@@ -122,42 +122,6 @@ function main() {
           );
           process.exit(1);
         }
-      },
-    )
-    .command(
-      "review",
-      "Review mapped skills in the registry",
-      (y) =>
-        y
-          .option("filter", {
-            type: "string",
-            choices: ["mapped", "unmapped", "all"] as const,
-            default: "all",
-            describe: "Filter skills",
-          })
-          .option("stats", {
-            type: "boolean",
-            default: false,
-            describe: "Show statistics only",
-          }),
-      async (args) => {
-        showBanner();
-        console.log(`${YELLOW}Review command - coming soon!${RESET}`);
-        console.log(
-          `${DIM}This will allow you to browse and review skills in the registry.${RESET}\n`,
-        );
-      },
-    )
-    .command(
-      "discover",
-      "Auto-discover missing skills for your tech stack",
-      () => {},
-      async () => {
-        showBanner();
-        console.log(`${YELLOW}Discover command - coming soon!${RESET}`);
-        console.log(
-          `${DIM}This will analyze your stack and proactively suggest missing skills.${RESET}\n`,
-        );
       },
     )
     .demandCommand(1, `${YELLOW}Please specify a command${RESET}`)

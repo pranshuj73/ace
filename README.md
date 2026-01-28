@@ -7,10 +7,13 @@ Open-source skills ecosystem for AI agents - API server and CLI.
 ```
 upskill/
 ├── apps/
-│   ├── api/          # Elysia API server
-│   └── cli/          # CLI tool
+│   ├── api/          # Elysia API server (optional, for future enhancements)
+│   └── cli/          # Main CLI tool ✨
 ├── docs/             # Architecture documentation
-└── scraped.json      # Scraped skills data
+│   ├── AGENT-SUPPORT.md      # 33 supported agents
+│   ├── VERCEL-CLI-REFERENCE.md  # Vercel API reference
+│   └── ...
+└── skills-main/      # Vercel CLI reference (can be deleted)
 ```
 
 ## Setup
@@ -77,8 +80,36 @@ bun run build:cli
 
 ## CLI Commands
 
-- `upskill suggest` - Suggest skills based on package.json
-- `upskill review` - Review mapped skills
+### `upskill suggest` (Main Feature)
+
+Intelligently suggests skills based on your project's dependencies and installed skills.
+
+```bash
+# Basic usage (auto-detects installed agents)
+bun run dev:cli suggest
+
+# With options
+bun run dev:cli suggest --limit 20 --scope both
+
+# Show detected agents
+bun run dev:cli suggest --show-agents
+
+# Specify agents manually
+bun run dev:cli suggest --agents cursor claude-code windsurf
+```
+
+**Features**:
+- ✅ Reads `package.json` dependencies
+- ✅ Detects installed skills across 33 agents
+- ✅ Auto-detects which agents are installed
+- ✅ Searches Vercel's skills.sh API
+- ✅ Smart relevance ranking
+- ✅ Beautiful terminal output
+
+### Other Commands (Coming Soon)
+
+- `upskill review` - Review skills in registry
+- `upskill discover` - Auto-discover missing skills
 
 ## Environment Variables
 

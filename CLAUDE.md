@@ -150,12 +150,38 @@ Display formatted suggestions with install commands
 - Fallback for keyword searches
 - Relevance score: `log10(installs) * 100`
 
-### Skill Detection
+### Agent Support
 
-The CLI detects installed skills in these locations:
-- **Project-level**: `{cwd}/.{agent}/skills/`
-- **Global-level**: `~/.{agent}/skills/`
-- **Supported agents**: cursor, gemini, windsurf, agent (extensible)
+The CLI supports **33 AI coding agents** with automatic detection:
+
+**Auto-Detection**: The CLI automatically detects which agents are installed on your system by checking for their configuration directories.
+
+**Supported Agents** (33 total):
+- Amp, Antigravity, Claude Code, Moltbot, Cline, CodeBuddy, Codex, Command Code
+- Continue, Crush, Cursor, Droid, Gemini CLI, GitHub Copilot, Goose, Junie
+- Kilo, Kimi CLI, Kiro CLI, Kode, MCPJam, Mux, Neovate, OpenCode
+- OpenHands, Pi, Pochi, Qoder, Qwen Code, Roo Code, Trae, Windsurf, Zencoder
+
+**Configuration** (per agent):
+- Project skills: `.{agent}/skills/` (e.g., `.cursor/skills/`)
+- Global skills: `~/.{agent}/skills/` (e.g., `~/.cursor/skills/`)
+
+**Usage**:
+```bash
+# Auto-detect installed agents
+bun run dev:cli suggest
+
+# Show detected agents
+bun run dev:cli suggest --show-agents
+
+# Specify agents manually
+bun run dev:cli suggest --agents cursor claude-code windsurf
+
+# Check both project and global skills
+bun run dev:cli suggest --scope both
+```
+
+See `docs/AGENT-SUPPORT.md` for complete documentation.
 
 ## API Architecture (Optional)
 

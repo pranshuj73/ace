@@ -8,7 +8,6 @@ import { getInstalledSkills, type AgentId } from "./installed-skills";
 import {
   batchSearchByPackages,
   fuzzyMatchSkillsVercel,
-  type VercelSkill,
 } from "./vercel-api";
 import { suggestSkills as suggestSkillsOwnAPI } from "./api";
 
@@ -38,8 +37,8 @@ export interface SuggestionResult {
  */
 export async function generateSuggestions(
   cwd: string,
-  agents: AgentId[] = ["cursor", "gemini", "windsurf", "agent"],
-  scope: "project" | "global" = "project",
+  agents?: AgentId[],
+  scope: "project" | "global" | "both" = "project",
   limit: number = 10,
 ): Promise<SuggestionResult> {
   // 1. Gather context
