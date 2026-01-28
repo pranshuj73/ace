@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Upskill is a **hybrid AI agent skill discovery CLI** that intelligently suggests skills based on your tech stack. It combines:
+Ace is a **hybrid AI agent skill discovery CLI** that intelligently suggests skills based on your tech stack. It combines:
 - **Vercel's skills.sh API** for real-time skill data
 - **Smart package analysis** from package.json
 - **Installed skills detection** across multiple agents
@@ -13,7 +13,7 @@ Upskill is a **hybrid AI agent skill discovery CLI** that intelligently suggests
 ## Monorepo Structure
 
 ```
-upskill/
+ace/
 ├── apps/
 │   ├── api/          # Elysia API server (optional, for future enhancements)
 │   └── cli/          # Main CLI tool ✨
@@ -56,7 +56,7 @@ bun run typecheck    # Type check only
 
 ## CLI Commands
 
-### `upskill suggest` ✨ (Main Feature)
+### `ace suggest` ✨ (Main Feature)
 
 Intelligently suggests skills based on your project's dependencies and installed skills.
 
@@ -79,8 +79,8 @@ bun run dev:cli suggest --limit 15 --scope global
 
 ### Other Commands (Coming Soon)
 
-- `upskill review` - Review skills in registry
-- `upskill discover` - Auto-discover missing skills for your stack
+- `ace review` - Review skills in registry
+- `ace discover` - Auto-discover missing skills for your stack
 
 ## Architecture
 
@@ -121,7 +121,7 @@ The CLI uses a **three-tier approach**:
 ### Data Flow
 
 ```
-User runs: upskill suggest
+User runs: ace suggest
   ↓
 Read package.json → ["react", "next", "typescript"]
   ↓
@@ -232,7 +232,7 @@ bun run dev:cli suggest --limit 20 --scope global
 
 **CLI:**
 - `SKILLS_API_URL` - Override Vercel API base (default: https://skills.sh)
-- `UPSKILL_API_URL` - Our own API URL (optional)
+- `ACE_API_URL` - Our own API URL (optional)
 
 **API (if running):**
 - `DATABASE_URL` - Turso database URL

@@ -1,4 +1,4 @@
-name = "upskill-api"
+name = "ace-api"
 main = "src/cloudflare.ts"
 compatibility_date = "2025-06-01"
 

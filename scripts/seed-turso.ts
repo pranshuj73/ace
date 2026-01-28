@@ -13,8 +13,8 @@ type RegistrySkill = {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
-const registryPath = path.join(rootDir, ".upskill", "skills-registry.json");
-const mappingsPath = path.join(rootDir, ".upskill", "package-mappings.json");
+const registryPath = path.join(rootDir, ".ace", "skills-registry.json");
+const mappingsPath = path.join(rootDir, ".ace", "package-mappings.json");
 const outDir = path.join(rootDir, "scripts");
 const outPath = path.join(outDir, "seed-turso.sql");
 

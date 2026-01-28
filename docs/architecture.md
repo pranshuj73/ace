@@ -1,8 +1,8 @@
-# Database Architecture for Large-Scale Upskill
+# Database Architecture for Large-Scale Ace
 
 ## Overview
 
-This document outlines the database schema and API design for scaling the upskill CLI to handle large-scale usage.
+This document outlines the database schema and API design for scaling the ace CLI to handle large-scale usage.
 
 ## Database Schema
 
@@ -257,7 +257,7 @@ type Package {
 
 ```typescript
 // src/api/client.ts
-class UpskillAPI {
+class AceAPI {
   constructor(private baseURL: string, private apiKey?: string) {}
   
   async suggestSkills(packages: string[]): Promise<Skill[]> {

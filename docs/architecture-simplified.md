@@ -107,7 +107,7 @@ ORDER BY
 
 ## Tags: Optional Auto-Generated (For Filtering Only)
 
-**Purpose**: Only for filtering/searching in the `review` command (e.g., `upskill review --tag frontend`)
+**Purpose**: Only for filtering/searching in the `review` command (e.g., `ace review --tag frontend`)
 
 **How to generate**: Auto-infer from skill name/repo/package context (current `inferTags()` function)
 

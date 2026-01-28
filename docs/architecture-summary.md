@@ -136,7 +136,7 @@ Response:
 
 ```typescript
 // src/api/client.ts
-const API_BASE = process.env.UPSKILL_API_URL || 'https://api.upskill.sh';
+const API_BASE = process.env.ACE_API_URL || 'https://api.ace.sh';
 
 async function suggestSkills(packages: string[]) {
   // Try API first

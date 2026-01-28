@@ -1,6 +1,6 @@
-# Upskill Project Status (For Future Me)
+# Ace Project Status (For Future Me)
 
-This doc is a quick "brain refresh" for the current state of the Upskill
+This doc is a quick "brain refresh" for the current state of the Ace
 monorepo, what exists today, and what to build next.
 
 ## Current Snapshot
@@ -15,12 +15,12 @@ monorepo, what exists today, and what to build next.
    - `GET /api/v1/skills/:skillId`
    - `GET /api/v1/packages/:packageName/skills`
 - CLI commands exist but are placeholders:
-  - `upskill suggest` -> TODO (prints "coming soon")
-  - `upskill review` -> TODO (prints "coming soon")
+  - `ace suggest` -> TODO (prints "coming soon")
+  - `ace review` -> TODO (prints "coming soon")
 - Local data sources (seed inputs):
   - `scraped.json`: raw scrape data (large list of skills)
-  - `.upskill/skills-registry.json`: normalized skills list
-  - `.upskill/package-mappings.json`: skillId -> package[] mapping (partial)
+  - `.ace/skills-registry.json`: normalized skills list
+  - `.ace/package-mappings.json`: skillId -> package[] mapping (partial)
 - Database: Turso (libSQL) + Drizzle ORM
 - Architecture docs exist in `docs/` with both "full" and "simplified" plans.
 
@@ -42,8 +42,8 @@ monorepo, what exists today, and what to build next.
 - Seed SQL generator: `scripts/seed-turso.ts` -> `scripts/seed-turso.sql`
 - CLI entry: `apps/cli/src/index.ts`
 - Raw skills data: `scraped.json`
-- Registry + mappings: `.upskill/skills-registry.json`,
-  `.upskill/package-mappings.json`
+- Registry + mappings: `.ace/skills-registry.json`,
+  `.ace/package-mappings.json`
 - Recommendation spec: `docs/recommendation-logic.md`
 - Architecture options:
   - `docs/architecture-simplified.md` (rule-based, minimal)

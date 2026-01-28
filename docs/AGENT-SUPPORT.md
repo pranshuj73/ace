@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Upskill CLI now supports **33 AI coding agents** with automatic detection and configuration. This matches the full agent support from Vercel's official skills CLI.
+The Ace CLI now supports **33 AI coding agents** with automatic detection and configuration. This matches the full agent support from Vercel's official skills CLI.
 
 ## Supported Agents (33 total)
 

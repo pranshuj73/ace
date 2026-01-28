@@ -1,9 +1,9 @@
 {
-  "name": "@upskill/cli",
+  "name": "@ace/cli",
   "version": "0.1.0",
   "type": "module",
   "bin": {
-    "upskill": "./dist/index.js"
+    "ace": "./dist/index.js"
   },
   "scripts": {
     "dev": "bun run src/index.ts",

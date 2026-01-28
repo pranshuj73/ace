@@ -1,11 +1,11 @@
-# Upskill Monorepo
+# Ace Monorepo
 
 Open-source skills ecosystem for AI agents - API server and CLI.
 
 ## Structure
 
 ```
-upskill/
+ace/
 ├── apps/
 │   ├── api/          # Elysia API server (optional, for future enhancements)
 │   └── cli/          # Main CLI tool ✨
@@ -80,7 +80,7 @@ bun run build:cli
 
 ## CLI Commands
 
-### `upskill suggest` (Main Feature)
+### `ace suggest` (Main Feature)
 
 Intelligently suggests skills based on your project's dependencies and installed skills.
 
@@ -108,9 +108,9 @@ bun run dev:cli suggest --agents cursor claude-code windsurf
 
 ### Other Commands (Coming Soon)
 
-- `upskill review` - Review skills in registry
-- `upskill discover` - Auto-discover missing skills
+- `ace review` - Review skills in registry
+- `ace discover` - Auto-discover missing skills
 
 ## Environment Variables
 
-- `UPSKILL_API_URL` - API base URL (default: http://localhost:3000)
+- `ACE_API_URL` - API base URL (default: http://localhost:3000)

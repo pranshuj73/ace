@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Upskill is an open-source skills ecosystem for AI agents with an API server and CLI. The project suggests relevant AI agent skills based on installed packages and existing skills.
+Ace is an open-source skills ecosystem for AI agents with an API server and CLI. The project suggests relevant AI agent skills based on installed packages and existing skills.
 
 ## Monorepo Structure
 
 ```
-upskill/
+ace/
 ├── apps/
 │   ├── api/          # Elysia API server (Bun/Cloudflare Workers)
 │   └── cli/          # CLI tool for suggesting skills
@@ -181,9 +181,9 @@ The CLI:
 The CLI (`apps/cli/src/index.ts`) uses yargs for command parsing:
 
 **Commands:**
-- `upskill suggest` - Suggest skills based on package.json and installed skills
+- `ace suggest` - Suggest skills based on package.json and installed skills
   - Options: `--agents`, `--scope`, `--limit`
-- `upskill review` - Review mapped skills (coming soon)
+- `ace review` - Review mapped skills (coming soon)
 
 **Utilities:**
 - `utils/package-json.ts` - Read package.json dependencies

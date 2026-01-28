@@ -19,7 +19,7 @@ const YELLOW = "\x1b[33m";
 function showBanner() {
   console.log(`
 ${CYAN}${BOLD}╔════════════════════════════════════════╗
-║   UPSKILL - AI Agent Skill Discovery   ║
+║   ACE - AI Agent Skill Discovery   ║
 ╚════════════════════════════════════════╝${RESET}
 
 ${DIM}Intelligent skill suggestions for your codebase${RESET}
@@ -28,8 +28,8 @@ ${DIM}Intelligent skill suggestions for your codebase${RESET}
 
 function main() {
   yargs(hideBin(process.argv))
-    .scriptName("upskill")
-    .usage(`${BOLD}Usage:${RESET} upskill <command> [options]`)
+    .scriptName("ace")
+    .usage(`${BOLD}Usage:${RESET} ace <command> [options]`)
     .command(
       "suggest",
       "Suggest skills based on package.json and installed skills",
@@ -118,7 +118,7 @@ function main() {
             error instanceof Error ? error.message : error,
           );
           console.error(
-            `\n${DIM}If this persists, please report it at: https://github.com/your-repo/upskill/issues${RESET}\n`,
+            `\n${DIM}If this persists, please report it at: https://github.com/your-repo/ace/issues${RESET}\n`,
           );
           process.exit(1);
         }
@@ -131,7 +131,7 @@ function main() {
     .alias("version", "v")
     .strict()
     .epilog(
-      `${DIM}For more information, visit: https://github.com/your-repo/upskill${RESET}`,
+      `${DIM}For more information, visit: https://github.com/your-repo/ace${RESET}`,
     )
     .parse();
 }

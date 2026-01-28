@@ -1,6 +1,6 @@
 export const config = {
   api: {
-    domain: "upskill.prnsh.site",
+    domain: "ace.prnsh.site",
     protocol: "https" as const,
     get baseUrl() {
       return `${this.protocol}://${this.domain}`;

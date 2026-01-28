@@ -1,7 +1,7 @@
 import { config } from "../../../../config";
 
 const API_BASE =
-  process.env.UPSKILL_API_URL || config.api.baseUrl;
+  process.env.ACE_API_URL || config.api.baseUrl;
 
 export interface OwnAPISuggestion {
   skills: Array<{

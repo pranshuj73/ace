@@ -61,6 +61,9 @@ export async function generateSuggestions(
 
   try {
     const apiData = await suggestSkillsOwnAPI(packages, installedSkills, limit);
+    if (!apiData?.skills) {
+      throw new Error("Invalid API response");
+    }
     ownAPIResults = apiData.skills.map((skill) => ({
       name: skill.name,
       title: skill.title,
@@ -83,9 +86,8 @@ export async function generateSuggestions(
         sourcedFrom,
       };
     }
-  } catch (error) {
-    // Own API failed or unavailable, fall back to Vercel
-    console.warn("Own API unavailable, using Vercel API...");
+  } catch {
+    // Own API failed or unavailable, fall back to Vercel silently
   }
 
   // 3. Use Vercel API as fallback/primary

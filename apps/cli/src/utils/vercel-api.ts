@@ -44,19 +44,12 @@ export async function searchSkillsVercel(
     const res = await fetch(url);
 
     if (!res.ok) {
-      console.warn(
-        `Vercel API search failed: ${res.status} ${res.statusText}`,
-      );
       return [];
     }
 
     const data = (await res.json()) as VercelSearchResponse;
     return data.skills || [];
-  } catch (error) {
-    console.warn(
-      `Failed to search skills via Vercel API:`,
-      error instanceof Error ? error.message : error,
-    );
+  } catch {
     return [];
   }
 }
@@ -79,19 +72,12 @@ export async function fuzzyMatchSkillsVercel(
     });
 
     if (!response.ok) {
-      console.warn(
-        `Vercel API fuzzy match failed: ${response.status} ${response.statusText}`,
-      );
       return {};
     }
 
     const data = (await response.json()) as VercelFuzzyMatchResponse;
     return data.matches || {};
-  } catch (error) {
-    console.warn(
-      `Failed to fuzzy match skills via Vercel API:`,
-      error instanceof Error ? error.message : error,
-    );
+  } catch {
     return {};
   }
 }

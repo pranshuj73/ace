@@ -121,7 +121,7 @@ LIMIT $4;  -- $4 = limit
 
 **Options**:
 1. **Keep tags** - Auto-generate from skill name/repo/package context (current approach)
-   - Useful for: `upskill review --tag frontend`
+   - Useful for: `ace review --tag frontend`
    - Not used for recommendations, just filtering/search
 
 2. **Remove tags** - If not needed, can filter by:
@@ -141,7 +141,7 @@ LIMIT $4;  -- $4 = limit
 
 ## Example Flow
 
-1. User runs `upskill suggest`
+1. User runs `ace suggest`
 2. CLI reads `package.json` → finds `["react", "expo"]`
 3. CLI checks installed skills → finds `["expo-some-skill"]` in `.cursor/skills/`
 4. CLI calls API: `GET /api/v1/skills/suggest?packages=react,expo&installed_skills=expo-some-skill`
