@@ -5,9 +5,10 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { cwd } from "node:process";
 import { readPackageJson } from "./utils/package-json";
-import { getInstalledSkills, type AgentId } from "./utils/installed-skills";
+import { getInstalledSkills } from "./utils/installed-skills";
 import { generateSuggestions } from "./utils/suggest";
 import { displaySuggestions } from "./utils/display";
+import { ensureConfig } from "./utils/config";
 
 function main() {
   yargs(hideBin(process.argv))
@@ -15,27 +16,24 @@ function main() {
     .usage("Usage: ace <command> [options]")
     .command(
       "suggest",
-      "Suggest skills based on your project",
+      "Suggest and install skills for your project",
       (y) =>
-        y
-          .option("agents", {
-            type: "array",
-            describe: "Target specific agents",
-          })
-          .option("scope", {
-            type: "string",
-            choices: ["project", "global", "both"] as const,
-            default: "project",
-          })
-          .option("limit", {
-            type: "number",
-            default: 10,
-          }),
+        y.option("limit", {
+          type: "number",
+          default: 10,
+          describe: "Max suggestions to show",
+        }),
       async (args) => {
         p.intro("ace - skill discovery");
 
         const currentDir = cwd();
-        const agentsToUse = args.agents ? (args.agents as AgentId[]) : undefined;
+
+        // Ensure config exists (first-run setup if needed)
+        const config = await ensureConfig(currentDir);
+        if (!config) {
+          p.outro("Setup cancelled");
+          return;
+        }
 
         const s = p.spinner();
         s.start("Analyzing project...");
@@ -44,8 +42,8 @@ function main() {
           const packages = await readPackageJson(currentDir);
           const installedSkills = getInstalledSkills(
             currentDir,
-            agentsToUse,
-            args.scope as "project" | "global" | "both",
+            config.agents,
+            config.scope,
           );
 
           if (packages.length === 0 && installedSkills.length === 0) {
@@ -59,20 +57,37 @@ function main() {
 
           const suggestions = await generateSuggestions(
             currentDir,
-            agentsToUse,
-            args.scope as "project" | "global" | "both",
+            config.agents,
+            config.scope,
             args.limit,
           );
 
           s.stop(`Found ${packages.length} packages, ${installedSkills.length} installed skills`);
 
-          await displaySuggestions(suggestions);
+          await displaySuggestions(suggestions, config);
 
           p.outro("Done");
         } catch (error) {
           s.stop("Error");
           p.log.error(error instanceof Error ? error.message : String(error));
           process.exit(1);
+        }
+      },
+    )
+    .command(
+      "config",
+      "Reset configuration",
+      () => {},
+      async () => {
+        const currentDir = cwd();
+        const { unlinkSync, existsSync } = await import("node:fs");
+        const configPath = `${currentDir}/.ace.json`;
+
+        if (existsSync(configPath)) {
+          unlinkSync(configPath);
+          p.log.info("Config reset. Run 'ace suggest' to reconfigure.");
+        } else {
+          p.log.warn("No config found.");
         }
       },
     )

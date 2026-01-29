@@ -1,7 +1,12 @@
 import * as p from "@clack/prompts";
 import type { SuggestionResult, EnrichedSkill } from "./suggest";
+import type { AceConfig } from "./config";
+import { getAgentConfig } from "./agents";
 
-export async function displaySuggestions(data: SuggestionResult): Promise<void> {
+export async function displaySuggestions(
+  data: SuggestionResult,
+  config: AceConfig,
+): Promise<void> {
   if (data.skills.length === 0) {
     p.log.warn("No skills found matching your project.");
     return;
@@ -24,11 +29,12 @@ export async function displaySuggestions(data: SuggestionResult): Promise<void> 
     return;
   }
 
-  await installSkills(selected as EnrichedSkill[]);
+  await installSkills(selected as EnrichedSkill[], config);
 }
 
-async function installSkills(skills: EnrichedSkill[]): Promise<void> {
+async function installSkills(skills: EnrichedSkill[], config: AceConfig): Promise<void> {
   const s = p.spinner();
+  let totalInstalled = 0;
 
   for (const skill of skills) {
     const source = skill.source || skill.repo;
@@ -37,31 +43,51 @@ async function installSkills(skills: EnrichedSkill[]): Promise<void> {
       continue;
     }
 
-    const cmd = `npx skills add ${source}@${skill.name}`;
-    s.start(`Installing ${skill.name}...`);
+    // Install to each configured agent
+    for (const agentId of config.agents) {
+      const agentConfig = getAgentConfig(agentId);
+      s.start(`Installing ${skill.name} for ${agentConfig.displayName}...`);
 
-    try {
-      const proc = Bun.spawn(["npx", "skills", "add", `${source}@${skill.name}`], {
-        stdout: "pipe",
-        stderr: "pipe",
-      });
+      // Build the install command with agent and scope flags
+      const args = ["skills", "add", `${source}@${skill.name}`];
 
-      const exitCode = await proc.exited;
+      // Add agent flag
+      args.push("--agent", agentId);
 
-      if (exitCode === 0) {
-        s.stop(`Installed ${skill.name}`);
-      } else {
-        const stderr = await new Response(proc.stderr).text();
-        s.stop(`Failed to install ${skill.name}`);
-        p.log.error(stderr || `Exit code: ${exitCode}`);
+      // Add scope flag
+      if (config.scope === "global") {
+        args.push("--global");
       }
-    } catch (err) {
-      s.stop(`Failed to install ${skill.name}`);
-      p.log.error(err instanceof Error ? err.message : String(err));
+
+      try {
+        const proc = Bun.spawn(["npx", ...args], {
+          stdout: "pipe",
+          stderr: "pipe",
+        });
+
+        const exitCode = await proc.exited;
+
+        if (exitCode === 0) {
+          s.stop(`Installed ${skill.name} for ${agentConfig.displayName}`);
+          totalInstalled++;
+        } else {
+          const stderr = await new Response(proc.stderr).text();
+          s.stop(`Failed to install ${skill.name} for ${agentConfig.displayName}`);
+          if (stderr) {
+            p.log.error(stderr.trim());
+          }
+        }
+      } catch (err) {
+        s.stop(`Failed to install ${skill.name} for ${agentConfig.displayName}`);
+        p.log.error(err instanceof Error ? err.message : String(err));
+      }
     }
   }
 
-  p.log.success(`Done! Installed ${skills.length} skill(s).`);
+  if (totalInstalled > 0) {
+    const agentNames = config.agents.map(id => getAgentConfig(id).displayName).join(", ");
+    p.log.success(`Installed ${totalInstalled} skill(s) across ${agentNames}`);
+  }
 }
 
 function formatInstalls(installs: number): string {

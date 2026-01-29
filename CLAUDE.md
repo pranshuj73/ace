@@ -50,7 +50,7 @@ bun run typecheck    # Type check only
 ## Tech Stack
 
 - **Runtime**: Bun (primary), Node.js (compatible)
-- **CLI Framework**: yargs
+- **CLI Framework**: yargs + @clack/prompts (interactive TUI)
 - **External API**: Vercel skills.sh API
 - **Language**: TypeScript
 
@@ -58,29 +58,36 @@ bun run typecheck    # Type check only
 
 ### `ace suggest` ✨ (Main Feature)
 
-Intelligently suggests skills based on your project's dependencies and installed skills.
+Interactive skill discovery and installation with beautiful TUI.
+
+**First Run:**
+- Asks which AI agent you use (Cursor, Claude Code, Windsurf, etc.)
+- Asks installation preference (project or global)
+- Saves config to `.ace.json` for future runs
 
 **How it works:**
 1. Reads `package.json` to extract dependencies
-2. Scans for installed skills in `.cursor/skills/`, `.gemini/skills/`, etc.
+2. Scans for installed skills in configured agent directories
 3. Searches Vercel's API for relevant skills
-4. Ranks by relevance (package matches > installed matches > installs)
-5. Displays formatted results with installation commands
+4. Shows interactive multi-select to choose which skills to install
+5. Installs selected skills with proper agent and scope flags
 
 **Options:**
-- `--agents <agents>` - Target agents (default: cursor, gemini, windsurf, agent)
-- `--scope <project|global>` - Installation scope (default: project)
-- `--limit <number>` - Max results (default: 10)
+- `--limit <number>` - Max suggestions to show (default: 10)
 
 **Example:**
 ```bash
-bun run dev:cli suggest --limit 15 --scope global
+bun run dev:cli suggest
 ```
 
-### Other Commands (Coming Soon)
+### `ace config`
 
-- `ace review` - Review skills in registry
-- `ace discover` - Auto-discover missing skills for your stack
+Reset your configuration (deletes `.ace.json`). Next `suggest` run will ask for preferences again.
+
+**Example:**
+```bash
+bun run dev:cli config
+```
 
 ## Architecture
 
