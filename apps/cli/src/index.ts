@@ -8,7 +8,7 @@ import { readPackageJson } from "./utils/package-json";
 import { getInstalledSkills } from "./utils/installed-skills";
 import { generateSuggestions } from "./utils/suggest";
 import { displaySuggestions } from "./utils/display";
-import { ensureConfig } from "./utils/config";
+import { ensureConfig, syncInstalledSkills } from "./utils/config";
 
 function main() {
   yargs(hideBin(process.argv))
@@ -24,6 +24,14 @@ function main() {
           describe: "Max suggestions to show",
         }),
       async (args) => {
+      console.log(`
+█████╗  ██████╗███████╗
+██╔══██╗██╔════╝██╔════╝
+███████║██║     █████╗  
+██╔══██║██║     ██╔══╝  
+██║  ██║╚██████╗███████╗
+╚═╝  ╚═╝ ╚═════╝╚══════╝
+`)
         p.intro("ace - skill discovery");
 
         const currentDir = cwd();
@@ -34,6 +42,9 @@ function main() {
           p.outro("Setup cancelled");
           return;
         }
+
+        // Sync installed skills with config
+        syncInstalledSkills(currentDir);
 
         const s = p.spinner();
         s.start("Analyzing project...");

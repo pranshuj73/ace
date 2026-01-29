@@ -1,10 +1,11 @@
 import * as p from "@clack/prompts";
-import { existsSync, mkdirSync, symlinkSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, symlinkSync } from "node:fs";
 import path from "node:path";
 import { homedir } from "node:os";
 import { getAgentConfig, type AgentId } from "./agents";
 import type { EnrichedSkill } from "./suggest";
 import type { AceConfig } from "./config";
+import { updateSkills } from "./config";
 
 /**
  * Install skills using centralized .agents/skills/ directory with symlinks
@@ -68,39 +69,61 @@ export async function installSkills(
 
     s.start(`Installing ${skill.name}...`);
 
-    const args = ["skills", "add", `${source}@${skill.name}`];
+    const skillDir = path.join(centralSkillsDir, skill.name);
 
-    // Use global flag to install to home directory if global scope
-    if (config.scope === "global") {
-      args.push("--global");
+    // Skip if already exists
+    if (existsSync(skillDir)) {
+      s.stop(`${skill.name} already installed`);
+      continue;
     }
 
-    // Set custom skills directory via environment variable
-    const env = {
-      ...process.env,
-      SKILLS_DIR: centralSkillsDir,
-    };
-
     try {
-      const proc = Bun.spawn(["npx", ...args], {
-        stdout: "pipe",
-        stderr: "pipe",
-        env,
-        cwd: baseDir,
-      });
+      // Clone the skill repository
+      // Source format is typically: "username/repo" or "github:username/repo"
+      const repoUrl = source.startsWith("http")
+        ? source
+        : `https://github.com/${source}`;
 
-      const exitCode = await proc.exited;
+      // Clone into temp directory first
+      const tempDir = path.join(centralSkillsDir, `.temp-${skill.name}`);
 
-      if (exitCode === 0) {
-        s.stop(`Installed ${skill.name}`);
-        installed++;
-      } else {
-        const stderr = await new Response(proc.stderr).text();
-        s.stop(`Failed to install ${skill.name}`);
+      const cloneProc = Bun.spawn(
+        ["git", "clone", "--depth", "1", repoUrl, tempDir],
+        {
+          stdout: "pipe",
+          stderr: "pipe",
+        },
+      );
+
+      const exitCode = await cloneProc.exited;
+
+      if (exitCode !== 0) {
+        const stderr = await new Response(cloneProc.stderr).text();
+        s.stop(`Failed to clone ${skill.name}`);
         if (stderr) {
           p.log.error(stderr.trim());
         }
+        continue;
       }
+
+      // Check if skill is in a subdirectory (monorepo pattern)
+      const skillPath = path.join(tempDir, skill.name);
+      const sourceDir = existsSync(skillPath) ? skillPath : tempDir;
+
+      // Move to final location
+      const { renameSync, rmSync } = await import("node:fs");
+      renameSync(sourceDir, skillDir);
+
+      // Clean up temp directory if it still exists
+      if (existsSync(tempDir)) {
+        rmSync(tempDir, { recursive: true, force: true });
+      }
+
+      s.stop(`Installed ${skill.name}`);
+      installed++;
+
+      // Update config with installed skill
+      updateSkills(cwd, skill.name, source);
     } catch (err) {
       s.stop(`Failed to install ${skill.name}`);
       p.log.error(err instanceof Error ? err.message : String(err));

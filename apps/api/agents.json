@@ -3,5 +3,12 @@
     "claude-code",
     "cursor"
   ],
-  "scope": "project"
+  "scope": "project",
+  "skills": {
+    "typescript-advanced-types": "wshobson/agents",
+    "typescript": "pproenca/dot-skills",
+    "typescript-expert": "sickn33/antigravity-awesome-skills",
+    "elysiajs": "elysiajs/skills",
+    "drizzle-orm": "bobmatnyc/claude-mpm-skills"
+  }
 }

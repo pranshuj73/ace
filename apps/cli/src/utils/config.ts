@@ -7,6 +7,7 @@ import { detectInstalledAgents, POPULAR_AGENTS } from "./detect-agents";
 export interface AceConfig {
   agents: AgentId[];
   scope: "project" | "global";
+  skills: Record<string, string>; // skill-name -> source
 }
 
 const CONFIG_FILE = "agents.json";
@@ -32,6 +33,46 @@ export function loadConfig(cwd: string): AceConfig | null {
 export function saveConfig(cwd: string, config: AceConfig): void {
   const configPath = getConfigPath(cwd);
   writeFileSync(configPath, JSON.stringify(config, null, 2) + "\n");
+}
+
+export function updateSkills(
+  cwd: string,
+  skillName: string,
+  source: string,
+): void {
+  const config = loadConfig(cwd);
+  if (!config) return;
+
+  config.skills[skillName] = source;
+  saveConfig(cwd, config);
+}
+
+export function syncInstalledSkills(cwd: string): void {
+  const config = loadConfig(cwd);
+  if (!config) return;
+
+  const { readdirSync } = require("node:fs");
+  const { homedir } = require("node:os");
+  const path = require("node:path");
+
+  const baseDir = config.scope === "global" ? homedir() : cwd;
+  const skillsDir = path.join(baseDir, ".agents", "skills");
+
+  if (!existsSync(skillsDir)) return;
+
+  // Read installed skills from filesystem
+  const installedSkills = readdirSync(skillsDir, { withFileTypes: true })
+    .filter((dirent: any) => dirent.isDirectory() && !dirent.name.startsWith("."))
+    .map((dirent: any) => dirent.name);
+
+  // Sync with config - keep existing sources, add new ones with placeholder
+  const newSkills: Record<string, string> = {};
+  for (const skillName of installedSkills) {
+    newSkills[skillName] = config.skills[skillName] || "unknown";
+  }
+
+  config.skills = newSkills;
+  saveConfig(cwd, config);
 }
 
 export async function ensureConfig(cwd: string): Promise<AceConfig | null> {
@@ -122,6 +163,7 @@ export async function ensureConfig(cwd: string): Promise<AceConfig | null> {
   const config: AceConfig = {
     agents: agents as AgentId[],
     scope: scope as "project" | "global",
+    skills: {},
   };
 
   saveConfig(cwd, config);
