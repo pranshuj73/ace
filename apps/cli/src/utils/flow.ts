@@ -125,9 +125,11 @@ async function searchAndSelectSkills(
   selectedSkills: EnrichedSkill[],
   installedSkills: string[],
 ): Promise<void> {
+  const totalSelected = () => selectedSkills.length;
+
   while (true) {
     const query = await p.text({
-      message: "Search for skills:",
+      message: `Search for skills (${totalSelected()} selected, ESC to finish):`,
       placeholder: "e.g., react, typescript, testing",
     });
 
@@ -135,17 +137,13 @@ async function searchAndSelectSkills(
       break;
     }
 
-    const s = p.spinner();
-    s.start(`Searching for "${query}"...`);
-
     const results = await searchSkillsVercel(query as string, 20);
 
     if (results.length === 0) {
-      s.stop(`No skills found for "${query}"`);
+      // Use note instead of separate prompt
+      p.note(`No skills found for "${query}". Try another search.`);
       continue;
     }
-
-    s.stop(`Found ${results.length} skills`);
 
     // Filter out already selected and installed skills
     const selectedNames = new Set(selectedSkills.map((s) => s.name));
@@ -156,7 +154,7 @@ async function searchAndSelectSkills(
     );
 
     if (filteredResults.length === 0) {
-      p.log.warn("All found skills are already selected or installed.");
+      p.note("All found skills are already selected or installed. Try another search.");
       continue;
     }
 
@@ -167,12 +165,16 @@ async function searchAndSelectSkills(
     }));
 
     const selected = await p.multiselect({
-      message: `Select skills from search results:`,
+      message: `Found ${filteredResults.length} skills - select to add:`,
       options: searchOptions,
       required: false,
     });
 
-    if (!p.isCancel(selected) && selected.length > 0) {
+    if (p.isCancel(selected)) {
+      break;
+    }
+
+    if (selected.length > 0) {
       // Convert Vercel skills to EnrichedSkill format
       const enriched = (selected as any[]).map((skill) => ({
         name: skill.name,
@@ -187,17 +189,9 @@ async function searchAndSelectSkills(
       }));
 
       selectedSkills.push(...enriched);
-      p.log.success(`Added ${enriched.length} skill${enriched.length === 1 ? "" : "s"}`);
     }
 
-    const continueSearch = await p.confirm({
-      message: "Search for more skills?",
-      initialValue: false,
-    });
-
-    if (p.isCancel(continueSearch) || !continueSearch) {
-      break;
-    }
+    // Loop back to search prompt automatically
   }
 }
 
