@@ -32,9 +32,6 @@ bun install
 # Run CLI (main feature)
 bun run dev:cli
 
-# Test the suggest command
-bun run dev:cli suggest
-
 # Type check
 bun run typecheck
 ```
@@ -56,33 +53,42 @@ bun run typecheck    # Type check only
 
 ## CLI Commands
 
-### `ace suggest` ✨ (Main Feature)
+### `ace` ✨ (Main Command)
 
-Interactive skill discovery and installation with beautiful TUI.
+Interactive skill discovery and installation with beautiful TUI. Aligned with Vercel CLI experience.
 
 **First Run:**
-- Asks which AI agent you use (Cursor, Claude Code, Windsurf, etc.)
-- Asks installation preference (project or global)
-- Saves config to `.ace.json` for future runs
+- Asks installation preference (project or global) FIRST
+- Auto-detects installed agents based on scope
+- Shows only detected agents or popular 6 agents
+- Saves config to `agents.json` for future runs
 
 **How it works:**
-1. Reads `package.json` to extract dependencies
-2. Scans for installed skills in configured agent directories
-3. Searches Vercel's API for relevant skills
-4. Shows interactive multi-select to choose which skills to install
-5. Installs selected skills with proper agent and scope flags
+1. Shows intro and starts analyzing project (parallel with config setup)
+2. Reads `package.json` to extract dependencies
+3. Scans for installed skills in configured agent directories
+4. Searches Vercel's API for relevant skills
+5. Shows interactive multi-select to choose suggested skills
+6. Asks if you want to search for more skills
+7. If yes, lets you search and select additional skills
+8. Shows total count and asks for confirmation: "Selected X skills to install. Proceed?"
+9. Installs all selected skills to `.agents/skills/` with symlinks
 
 **Options:**
 - `--limit <number>` - Max suggestions to show (default: 10)
 
 **Example:**
 ```bash
-bun run dev:cli suggest
+# Just run ace
+bun run dev:cli
+
+# Or with custom limit
+bun run dev:cli --limit 20
 ```
 
 ### `ace config`
 
-Reset your configuration (deletes `.ace.json`). Next `suggest` run will ask for preferences again.
+Reset your configuration (deletes `agents.json`). Next run will ask for preferences again.
 
 **Example:**
 ```bash
@@ -116,29 +122,52 @@ The CLI uses a **three-tier approach**:
 
 **CLI Core:**
 - `apps/cli/src/index.ts` - Main entry point with yargs commands
-- `apps/cli/src/utils/suggest.ts` - Orchestration logic for suggestions
+- `apps/cli/src/utils/flow.ts` - Main flow orchestration (suggestions + search + install)
+- `apps/cli/src/utils/suggest.ts` - Suggestion generation logic
 - `apps/cli/src/utils/vercel-api.ts` - Vercel API client
-- `apps/cli/src/utils/display.ts` - Pretty terminal output
+- `apps/cli/src/utils/config.ts` - Configuration management and first-run setup
+- `apps/cli/src/utils/install.ts` - Skill installation with git clone
 
 **Utilities:**
 - `apps/cli/src/utils/package-json.ts` - Read package.json dependencies
 - `apps/cli/src/utils/installed-skills.ts` - Detect installed skills
+- `apps/cli/src/utils/detect-agents.ts` - Auto-detect installed agents
+- `apps/cli/src/utils/agents.ts` - Agent configuration (33 agents)
 - `apps/cli/src/utils/api.ts` - Our own API client (optional)
 
 ### Data Flow
 
 ```
-User runs: ace suggest
+User runs: ace
   ↓
-Read package.json → ["react", "next", "typescript"]
+Show ASCII art + intro
   ↓
-Detect installed skills → ["expo-cli"]
+┌─────────────────────────────┬─────────────────────────────┐
+│ Config Setup                │ Package Analysis            │
+│ (if first run: ask prefs)   │ (read package.json)         │
+└─────────────────────────────┴─────────────────────────────┘
+  ↓
+Sync installed skills with config
   ↓
 Search Vercel API in parallel for each package
   ↓
 Aggregate & rank results by relevance
   ↓
-Display formatted suggestions with install commands
+Display suggestions (multi-select)
+  ↓
+Ask: "Install more skills?"
+  ↓
+[If yes] Search loop:
+  - User enters search query
+  - Search Vercel API
+  - Show results (multi-select)
+  - Ask if user wants to search again
+  ↓
+Show confirmation: "Selected X skills. Proceed?"
+  ↓
+Install all selected skills to .agents/skills/
+  ↓
+Update agents.json with installed skills
 ```
 
 ### Recommendation Logic

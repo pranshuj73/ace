@@ -82,59 +82,57 @@ export async function ensureConfig(cwd: string): Promise<AceConfig | null> {
   }
 
   // First run - ask for preferences
-  p.log.info("First run detected. Let's set up your preferences.");
+  const group = await p.group(
+    {
+      scope: () =>
+        p.select({
+          message: "Install skills locally (this project) or globally?",
+          options: [
+            { value: "project" as const, label: "Project", hint: "skills in this project only" },
+            { value: "global" as const, label: "Global", hint: "skills available everywhere" },
+          ],
+        }),
+      agents: ({ results }) => {
+        const scope = results.scope as "project" | "global";
+        // Auto-detect installed agents based on scope
+        const detected = detectInstalledAgents(cwd, scope);
+        const agentsToShow = detected.length > 0 ? detected : POPULAR_AGENTS;
 
-  // Ask for scope FIRST
-  const scope = await p.select({
-    message: "Install skills locally (this project) or globally?",
-    options: [
-      { value: "project" as const, label: "Project", hint: "skills in this project only" },
-      { value: "global" as const, label: "Global", hint: "skills available everywhere" },
-    ],
-  });
+        const agentOptions = agentsToShow.map((id) => {
+          const cfg = getAgentConfig(id);
+          return {
+            value: id as string,
+            label: cfg.displayName,
+            hint: detected.includes(id) ? "detected" : undefined,
+          };
+        });
 
-  if (p.isCancel(scope)) {
-    return null;
-  }
+        // Add "Other..." option to show full list
+        agentOptions.push({
+          value: "__other__",
+          label: "Other agents...",
+          hint: "show all 33 agents",
+        });
 
-  // Auto-detect installed agents based on scope
-  const detected = detectInstalledAgents(cwd, scope as "project" | "global");
-  const agentsToShow = detected.length > 0 ? detected : POPULAR_AGENTS;
+        return p.multiselect({
+          message: "Which AI agents do you use?",
+          options: agentOptions,
+          required: true,
+        }) as Promise<string[]>;
+      },
+    },
+    {
+      onCancel: () => {
+        p.cancel("Setup cancelled");
+        process.exit(0);
+      },
+    },
+  );
 
-  if (detected.length > 0) {
-    p.log.success(`Detected ${detected.length} installed agent(s)`);
-  }
-
-  const agentOptions = agentsToShow.map((id) => {
-    const cfg = getAgentConfig(id);
-    return {
-      value: id as string,
-      label: cfg.displayName,
-      hint: detected.includes(id) ? "detected" : undefined,
-    };
-  });
-
-  // Add "Other..." option to show full list
-  agentOptions.push({
-    value: "__other__",
-    label: "Other agents...",
-    hint: "show all 33 agents",
-  });
-
-  const initialSelection = await p.multiselect({
-    message: "Which AI agents do you use?",
-    options: agentOptions,
-    required: true,
-  }) as string[];
-
-  if (p.isCancel(initialSelection)) {
-    return null;
-  }
-
-  let agents = initialSelection.filter(a => a !== "__other__");
+  let agents = group.agents.filter((a: string) => a !== "__other__");
 
   // If user selected "Other...", show full list
-  if (initialSelection.includes("__other__")) {
+  if (group.agents.includes("__other__")) {
     const { ALL_AGENT_IDS } = await import("./agents");
     const allOptions = ALL_AGENT_IDS.map((id) => {
       const cfg = getAgentConfig(id);
@@ -156,18 +154,17 @@ export async function ensureConfig(cwd: string): Promise<AceConfig | null> {
   }
 
   if (agents.length === 0) {
-    p.log.error("No agents selected");
-    return null;
+    p.cancel("No agents selected");
+    process.exit(0);
   }
 
   const config: AceConfig = {
     agents: agents as AgentId[],
-    scope: scope as "project" | "global",
+    scope: group.scope as "project" | "global",
     skills: {},
   };
 
   saveConfig(cwd, config);
-  p.log.success(`Saved preferences to ${CONFIG_FILE}`);
 
   return config;
 }

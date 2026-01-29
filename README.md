@@ -80,36 +80,43 @@ bun run build:cli
 
 ## CLI Commands
 
-### `ace suggest` (Main Feature)
+### `ace` (Main Command)
 
-Intelligently suggests skills based on your project's dependencies and installed skills.
+Intelligently discovers and installs skills for your project.
 
 ```bash
-# Basic usage (auto-detects installed agents)
-bun run dev:cli suggest
+# Basic usage
+bun run dev:cli
 
 # With options
-bun run dev:cli suggest --limit 20 --scope both
-
-# Show detected agents
-bun run dev:cli suggest --show-agents
-
-# Specify agents manually
-bun run dev:cli suggest --agents cursor claude-code windsurf
+bun run dev:cli --limit 20
 ```
+
+**Flow**:
+1. First run: asks for agent preferences and scope (project/global)
+2. Analyzes your `package.json` and suggests relevant skills
+3. Shows interactive multi-select to choose skills
+4. Optionally search for additional skills
+5. Confirms total selection before installation
+6. Installs all selected skills to `.agents/skills/`
 
 **Features**:
 - ✅ Reads `package.json` dependencies
 - ✅ Detects installed skills across 33 agents
 - ✅ Auto-detects which agents are installed
+- ✅ Interactive search for additional skills
 - ✅ Searches Vercel's skills.sh API
 - ✅ Smart relevance ranking
-- ✅ Beautiful terminal output
+- ✅ Batch installation with confirmation
+- ✅ Beautiful terminal UI with @clack/prompts
 
-### Other Commands (Coming Soon)
+### `ace config`
 
-- `ace review` - Review skills in registry
-- `ace discover` - Auto-discover missing skills
+Reset your configuration (deletes `agents.json`). Next run will ask for preferences again.
+
+```bash
+bun run dev:cli config
+```
 
 ## Environment Variables
 
