@@ -29,6 +29,3 @@ logs/
 # Temporary files
 tmp/
 temp/
-
-# Ace config
-.ace.json

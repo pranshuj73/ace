@@ -64,7 +64,7 @@ function main() {
 
           s.stop(`Found ${packages.length} packages, ${installedSkills.length} installed skills`);
 
-          await displaySuggestions(suggestions, config);
+          await displaySuggestions(suggestions, config, currentDir);
 
           p.outro("Done");
         } catch (error) {
@@ -81,7 +81,7 @@ function main() {
       async () => {
         const currentDir = cwd();
         const { unlinkSync, existsSync } = await import("node:fs");
-        const configPath = `${currentDir}/.ace.json`;
+        const configPath = `${currentDir}/agents.json`;
 
         if (existsSync(configPath)) {
           unlinkSync(configPath);

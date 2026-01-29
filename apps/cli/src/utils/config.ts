@@ -1,14 +1,15 @@
 import * as p from "@clack/prompts";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { ALL_AGENT_IDS, getAgentConfig, type AgentId } from "./agents";
+import { getAgentConfig, type AgentId } from "./agents";
+import { detectInstalledAgents, POPULAR_AGENTS } from "./detect-agents";
 
 export interface AceConfig {
   agents: AgentId[];
   scope: "project" | "global";
 }
 
-const CONFIG_FILE = ".ace.json";
+const CONFIG_FILE = "agents.json";
 
 export function getConfigPath(cwd: string): string {
   return path.join(cwd, CONFIG_FILE);
@@ -42,33 +43,79 @@ export async function ensureConfig(cwd: string): Promise<AceConfig | null> {
   // First run - ask for preferences
   p.log.info("First run detected. Let's set up your preferences.");
 
-  const agentOptions = ALL_AGENT_IDS.map((id) => {
-    const cfg = getAgentConfig(id);
-    return {
-      value: id as string,
-      label: cfg.displayName,
-    };
-  });
-
-  const agents = await p.multiselect({
-    message: "Which AI agents do you use? (select multiple)",
-    options: agentOptions,
-    required: true,
-  }) as string[];
-
-  if (p.isCancel(agents) || agents.length === 0) {
-    return null;
-  }
-
+  // Ask for scope FIRST
   const scope = await p.select({
     message: "Install skills locally (this project) or globally?",
     options: [
-      { value: "project" as const, label: "Project", hint: "skills available only in this project" },
+      { value: "project" as const, label: "Project", hint: "skills in this project only" },
       { value: "global" as const, label: "Global", hint: "skills available everywhere" },
     ],
   });
 
   if (p.isCancel(scope)) {
+    return null;
+  }
+
+  // Auto-detect installed agents based on scope
+  const detected = detectInstalledAgents(cwd, scope as "project" | "global");
+  const agentsToShow = detected.length > 0 ? detected : POPULAR_AGENTS;
+
+  if (detected.length > 0) {
+    p.log.success(`Detected ${detected.length} installed agent(s)`);
+  }
+
+  const agentOptions = agentsToShow.map((id) => {
+    const cfg = getAgentConfig(id);
+    return {
+      value: id as string,
+      label: cfg.displayName,
+      hint: detected.includes(id) ? "detected" : undefined,
+    };
+  });
+
+  // Add "Other..." option to show full list
+  agentOptions.push({
+    value: "__other__",
+    label: "Other agents...",
+    hint: "show all 33 agents",
+  });
+
+  const initialSelection = await p.multiselect({
+    message: "Which AI agents do you use?",
+    options: agentOptions,
+    required: true,
+  }) as string[];
+
+  if (p.isCancel(initialSelection)) {
+    return null;
+  }
+
+  let agents = initialSelection.filter(a => a !== "__other__");
+
+  // If user selected "Other...", show full list
+  if (initialSelection.includes("__other__")) {
+    const { ALL_AGENT_IDS } = await import("./agents");
+    const allOptions = ALL_AGENT_IDS.map((id) => {
+      const cfg = getAgentConfig(id);
+      return {
+        value: id as string,
+        label: cfg.displayName,
+      };
+    });
+
+    const additionalAgents = await p.multiselect({
+      message: "Select from all agents:",
+      options: allOptions,
+      required: false,
+    }) as string[];
+
+    if (!p.isCancel(additionalAgents)) {
+      agents = [...agents, ...additionalAgents];
+    }
+  }
+
+  if (agents.length === 0) {
+    p.log.error("No agents selected");
     return null;
   }
 
