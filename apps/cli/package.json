@@ -1,14 +1,44 @@
 {
-  "name": "@ace/cli",
+  "name": "@prnsh/ace",
   "version": "0.1.0",
+  "description": "Hybrid AI agent skill discovery CLI - intelligently suggests skills based on your tech stack",
+  "keywords": [
+    "ai",
+    "agents",
+    "skills",
+    "cli",
+    "cursor",
+    "claude",
+    "windsurf",
+    "cline",
+    "copilot",
+    "ai-tools"
+  ],
+  "author": "pranshuj73",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pranshuj73/ace.git",
+    "directory": "apps/cli"
+  },
+  "homepage": "https://github.com/pranshuj73/ace#readme",
+  "bugs": "https://github.com/pranshuj73/ace/issues",
   "type": "module",
   "bin": {
     "ace": "./dist/index.js"
   },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "bun run src/index.ts",
-    "build": "bun build src/index.ts --outdir ./dist --target bun --minify",
-    "typecheck": "tsc --noEmit"
+    "build": "bun build src/index.ts --outdir ./dist --target node --minify",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build"
   },
   "dependencies": {
     "@clack/prompts": "^1.0.0",

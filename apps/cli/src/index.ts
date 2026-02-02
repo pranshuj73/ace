@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
 import * as p from "@clack/prompts";
 import yargs from "yargs";
