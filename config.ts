@@ -1,6 +1,6 @@
 export const config = {
   api: {
-    domain: "ace.prnsh.site",
+    domain: "ace-api.pranshuj73.workers.dev",
     protocol: "https" as const,
     get baseUrl() {
       return `${this.protocol}://${this.domain}`;

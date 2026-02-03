@@ -1,6 +1,6 @@
 {
   "name": "@prnsh/ace",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Hybrid AI agent skill discovery CLI - intelligently suggests skills based on your tech stack",
   "keywords": [
     "ai",
@@ -18,14 +18,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pranshuj73/ace.git",
+    "url": "git+https://github.com/pranshuj73/ace.git",
     "directory": "apps/cli"
   },
   "homepage": "https://github.com/pranshuj73/ace#readme",
   "bugs": "https://github.com/pranshuj73/ace/issues",
   "type": "module",
   "bin": {
-    "ace": "./dist/index.js"
+    "ace": "dist/index.js"
   },
   "files": [
     "dist/**/*",
