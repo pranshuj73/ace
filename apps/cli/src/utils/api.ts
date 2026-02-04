@@ -1,7 +1,7 @@
 import config from "@/ace.config.json";
 
-const API_BASE =
-  process.env.ACE_API_URL || config.apis.suggestions.baseUrl;
+const SUGGESTIONS_API_BASE =
+  process.env.ACE_API_URL || config.api.suggestions.baseUrl;
 
 export interface OwnAPISuggestion {
   skills: Array<{
@@ -25,7 +25,7 @@ export async function suggestSkills(
   limit: number = 10,
 ): Promise<OwnAPISuggestion> {
   try {
-    const response = await fetch(`${API_BASE}/api/v1/skills/suggest`, {
+    const response = await fetch(`${SUGGESTIONS_API_BASE}/api/v1/skills/suggest`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

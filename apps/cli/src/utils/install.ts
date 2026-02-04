@@ -2,10 +2,10 @@ import * as p from "@clack/prompts";
 import { existsSync, mkdirSync, symlinkSync } from "node:fs";
 import path from "node:path";
 import { homedir } from "node:os";
-import { getAgentConfig, type AgentId } from "./agents";
-import type { EnrichedSkill } from "./suggest";
-import type { AceConfig } from "./config";
-import { updateSkills } from "./config";
+import { getAgentConfig, type AgentId } from "@/utils/agents";
+import type { EnrichedSkill } from "@/utils/suggest";
+import type { AceConfig } from "@/utils/config";
+import { updateSkills } from "@/utils/config";
 
 /**
  * Install skills using centralized .agents/skills/ directory with symlinks

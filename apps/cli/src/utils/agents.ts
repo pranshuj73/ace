@@ -1,8 +1,3 @@
-/**
- * Agent configuration for all supported coding agents
- * Based on Vercel's skills CLI agent support
- */
-
 import { existsSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";

@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { homedir } from "node:os";
-import { ALL_AGENT_IDS, getAgentConfig, type AgentId } from "./agents";
+import { ALL_AGENT_IDS, getAgentConfig, type AgentId } from "@/utils/agents";
 
 /**
  * Detect which agents are actually installed on the system

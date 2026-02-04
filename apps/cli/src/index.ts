@@ -4,7 +4,7 @@ import * as p from "@clack/prompts";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { cwd } from "node:process";
-import { runMainFlow } from "./utils/flow";
+import { runMainFlow } from "@/utils/flow";
 
 function main() {
   yargs(hideBin(process.argv))

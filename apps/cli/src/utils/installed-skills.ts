@@ -5,9 +5,7 @@ import {
   ALL_AGENT_IDS,
   getAgentConfig,
   detectInstalledAgents,
-} from "./agents";
-
-export type { AgentId } from "./agents";
+} from "@/utils/agents";
 
 /**
  * Get installed skills across specified agents
