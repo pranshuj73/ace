@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
 import { desc, eq, sql } from "drizzle-orm";
-import { db } from "../../db";
-import { packageSkillAsscn, packages, skills } from "../../db/schema";
-import { parseJsonArray } from "../../utils/parse";
+import { db } from "@/db";
+import { packageSkillAsscn, packages, skills } from "@/db/schema";
+import { parseJsonArray } from "@/utils/parse";
 
 export const packagesRoutes = new Elysia().group(
   "/api/v1/packages",

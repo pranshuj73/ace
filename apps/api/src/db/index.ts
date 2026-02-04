@@ -58,7 +58,7 @@ if (typeof process !== "undefined" && process.env) {
 }
 
 // Export getter that initializes if needed
-export const db = new Proxy({}, {
+export const db = new Proxy({} as LibSQLDatabase, {
   get(_target, prop) {
     if (!dbInstance) {
       dbInstance = initDb();

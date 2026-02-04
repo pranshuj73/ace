@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
 import { and, eq, inArray, notInArray, sql } from "drizzle-orm";
-import { db } from "../../db";
-import { packageSkillAsscn, packages, skills } from "../../db/schema";
-import { normalizeArray, parseJsonArray, toNumber } from "../../utils/parse";
+import { db } from "@/db";
+import { packageSkillAsscn, packages, skills } from "@/db/schema";
+import { normalizeArray, parseJsonArray, toNumber } from "@/utils/parse";
 
 type SuggestedSkill = {
   id: number;

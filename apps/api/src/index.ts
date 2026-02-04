@@ -5,10 +5,10 @@ import {
   packagesRoutes,
   rootRoutes,
   skillsRoutes,
-} from "./routes";
+} from "@/routes";
 
 // Initialize DB connection
-import "./db";
+import "@/db";
 
 // Only run server in Node.js/Bun environment (not Cloudflare Workers)
 if (typeof process !== "undefined" && process.env) {
@@ -21,6 +21,6 @@ if (typeof process !== "undefined" && process.env) {
     .listen(3000);
 
   console.log(
-    `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`,
+    `Elysia is running at http://${app.server?.hostname}:${app.server?.port}`,
   );
 }

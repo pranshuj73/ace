@@ -7,8 +7,8 @@ import {
   packagesRoutes,
   rootRoutes,
   skillsRoutes,
-} from "./routes";
-import { initDb } from "./db";
+} from "@/routes";
+import { initDb } from "@/db";
 
 // Cloudflare Workers entry point
 // Initialize DB with env from Cloudflare Workers bindings
