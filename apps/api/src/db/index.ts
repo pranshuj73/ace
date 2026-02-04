@@ -1,8 +1,7 @@
 import { createClient } from "@libsql/client";
 import { drizzle, type LibSQLDatabase } from "drizzle-orm/libsql";
-import type { schema } from "./schema";
 
-let dbInstance: LibSQLDatabase<typeof schema> | null = null;
+let dbInstance: LibSQLDatabase | null = null;
 
 // Initialize DB connection
 export function initDb(env?: {
@@ -59,7 +58,7 @@ if (typeof process !== "undefined" && process.env) {
 }
 
 // Export getter that initializes if needed
-export const db = new Proxy({} as LibSQLDatabase<typeof schema>, {
+export const db = new Proxy({}, {
   get(_target, prop) {
     if (!dbInstance) {
       dbInstance = initDb();
