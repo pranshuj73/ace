@@ -41,10 +41,12 @@ export async function generateSuggestions(
   agents?: AgentId[],
   scope: "project" | "global" | "both" = "project",
   limit: number = 10,
+  preReadPackages?: string[],
+  preReadInstalledSkills?: string[],
 ): Promise<SuggestionResult> {
   // 1. Gather context
-  const packages = await readPackageJson(cwd);
-  const installedSkills = getInstalledSkills(cwd, agents, scope);
+  const packages = preReadPackages ?? await readPackageJson(cwd);
+  const installedSkills = preReadInstalledSkills ?? getInstalledSkills(cwd, agents, scope);
 
   if (packages.length === 0 && installedSkills.length === 0) {
     return {

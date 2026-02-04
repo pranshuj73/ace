@@ -33,16 +33,18 @@ export async function runMainFlow(currentDir: string, limit: number): Promise<vo
     const s = p.spinner();
     s.start("Analyzing project...");
 
-    const packages = await packagesPromise;
-
-    // Sync installed skills with config
-    syncInstalledSkills(currentDir);
+    // Sync and read installed skills (runs in parallel with package.json read)
+    const syncPromise = syncInstalledSkills(currentDir);
+    await syncPromise;
 
     const installedSkills = getInstalledSkills(
       currentDir,
       config.agents,
       config.scope,
     );
+
+    // Now wait for package.json if not ready yet
+    const packages = await packagesPromise;
 
     s.message("Searching for skills...");
 
@@ -51,6 +53,8 @@ export async function runMainFlow(currentDir: string, limit: number): Promise<vo
       config.agents,
       config.scope,
       limit,
+      packages,
+      installedSkills,
     );
 
     s.stop("Analysis complete");

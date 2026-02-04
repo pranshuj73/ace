@@ -1,6 +1,8 @@
 import * as p from "@clack/prompts";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { readdir } from "node:fs/promises";
 import path from "node:path";
+import { homedir } from "node:os";
 import { getAgentConfig, type AgentId } from "@/utils/agents";
 import { detectInstalledAgents, POPULAR_AGENTS } from "@/utils/detect-agents";
 
@@ -47,13 +49,9 @@ export function updateSkills(
   saveConfig(cwd, config);
 }
 
-export function syncInstalledSkills(cwd: string): void {
+export async function syncInstalledSkills(cwd: string): Promise<void> {
   const config = loadConfig(cwd);
   if (!config) return;
-
-  const { readdirSync } = require("node:fs");
-  const { homedir } = require("node:os");
-  const path = require("node:path");
 
   const baseDir = config.scope === "global" ? homedir() : cwd;
   const skillsDir = path.join(baseDir, ".agents", "skills");
@@ -61,9 +59,10 @@ export function syncInstalledSkills(cwd: string): void {
   if (!existsSync(skillsDir)) return;
 
   // Read installed skills from filesystem
-  const installedSkills = readdirSync(skillsDir, { withFileTypes: true })
-    .filter((dirent: any) => dirent.isDirectory() && !dirent.name.startsWith("."))
-    .map((dirent: any) => dirent.name);
+  const dirents = await readdir(skillsDir, { withFileTypes: true });
+  const installedSkills = dirents
+    .filter((dirent) => dirent.isDirectory() && !dirent.name.startsWith("."))
+    .map((dirent) => dirent.name);
 
   // Sync with config - keep existing sources, add new ones with placeholder
   const newSkills: Record<string, string> = {};
