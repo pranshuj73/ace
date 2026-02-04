@@ -1,7 +1,7 @@
 import * as p from "@clack/prompts";
-import type { SuggestionResult } from "./suggest";
-import type { AceConfig } from "./config";
-import { installSkills } from "./install";
+import type { SuggestionResult } from "@/utils/suggest";
+import type { AceConfig } from "@/utils/config";
+import { installSkills } from "@/utils/install";
 
 export async function displaySuggestions(
   data: SuggestionResult,

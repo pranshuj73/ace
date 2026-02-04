@@ -1,9 +1,6 @@
-/**
- * Vercel Skills API Client
- * Interfaces with skills.sh API for skill discovery and search
- */
+import config from "@/ace.config.json";
 
-const SKILLS_API_BASE = process.env.SKILLS_API_URL || "https://skills.sh";
+const SKILLS_API_BASE = process.env.SKILLS_API_URL || config.api.skills.baseUrl;
 
 export interface VercelSkill {
   id: string;

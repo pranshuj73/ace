@@ -3,13 +3,14 @@
  * Combines package.json analysis, installed skills detection, and Vercel API
  */
 
-import { readPackageJson } from "./package-json";
-import { getInstalledSkills, type AgentId } from "./installed-skills";
+import { readPackageJson } from "@/utils/package-json";
+import { getInstalledSkills } from "@/utils/installed-skills";
+import { type AgentId } from "@/utils/agents";
 import {
   batchSearchByPackages,
   fuzzyMatchSkillsVercel,
-} from "./vercel-api";
-import { suggestSkills as suggestSkillsOwnAPI } from "./api";
+} from "@/utils/vercel-api";
+import { suggestSkills as suggestSkillsOwnAPI } from "@/utils/api";
 
 export interface EnrichedSkill {
   name: string;

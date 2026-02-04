@@ -1,7 +1,7 @@
-import { config } from "../../../../config";
+import config from "@/ace.config.json";
 
 const API_BASE =
-  process.env.ACE_API_URL || config.api.baseUrl;
+  process.env.ACE_API_URL || config.apis.suggestions.baseUrl;
 
 export interface OwnAPISuggestion {
   skills: Array<{

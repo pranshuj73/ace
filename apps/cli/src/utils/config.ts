@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { getAgentConfig, type AgentId } from "@/utils/agents";
 import { detectInstalledAgents, POPULAR_AGENTS } from "@/utils/detect-agents";
+import aceConfigJson from "@/ace.config.json";
 
 export interface AceConfig {
   agents: AgentId[];
@@ -168,3 +169,15 @@ export async function ensureConfig(cwd: string): Promise<AceConfig | null> {
 
   return config;
 }
+
+// API configuration
+export const config = {
+  api: {
+    skills: {
+      baseUrl: aceConfigJson.apis.skills.baseUrl,
+    },
+    suggestions: {
+      baseUrl: aceConfigJson.apis.suggestions.baseUrl,
+    },
+  },
+} as const;

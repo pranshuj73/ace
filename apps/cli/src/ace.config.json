@@ -1,0 +1,10 @@
+{
+  "api": {
+    "skills": {
+      "baseUrl": "https://skills.sh"
+    },
+    "suggestions": {
+      "baseUrl": "https://ace-api.pranshuj73.workers.dev"
+    }
+  }
+}

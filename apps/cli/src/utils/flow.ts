@@ -1,12 +1,11 @@
 import * as p from "@clack/prompts";
-import { readPackageJson } from "./package-json";
-import { getInstalledSkills } from "./installed-skills";
-import { generateSuggestions } from "./suggest";
-import { ensureConfig, syncInstalledSkills } from "./config";
-import { searchSkillsVercel } from "./vercel-api";
-import { installSkills } from "./install";
-import type { EnrichedSkill } from "./suggest";
-import type { AceConfig } from "./config";
+import { readPackageJson } from "@/utils/package-json";
+import { getInstalledSkills } from "@/utils/installed-skills";
+import { generateSuggestions } from "@/utils/suggest";
+import { ensureConfig, syncInstalledSkills } from "@/utils/config";
+import { searchSkillsVercel } from "@/utils/vercel-api";
+import { installSkills } from "@/utils/install";
+import type { EnrichedSkill } from "@/utils/suggest";
 
 export async function runMainFlow(currentDir: string, limit: number): Promise<void> {
   console.log(`
