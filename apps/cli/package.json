@@ -1,6 +1,6 @@
 {
   "name": "@prnsh/ace",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Hybrid AI agent skill discovery CLI - intelligently suggests skills based on your tech stack",
   "keywords": [
     "ai",
