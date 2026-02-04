@@ -1,8 +1,8 @@
 import * as p from "@clack/prompts";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { getAgentConfig, type AgentId } from "./agents";
-import { detectInstalledAgents, POPULAR_AGENTS } from "./detect-agents";
+import { getAgentConfig, type AgentId } from "@/utils/agents";
+import { detectInstalledAgents, POPULAR_AGENTS } from "@/utils/detect-agents";
 
 export interface AceConfig {
   agents: AgentId[];
