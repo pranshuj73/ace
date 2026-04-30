@@ -2,6 +2,7 @@ import * as p from "@clack/prompts";
 import { existsSync, mkdirSync, symlinkSync } from "node:fs";
 import path from "node:path";
 import { homedir } from "node:os";
+import { spawn } from "node:child_process";
 import { getAgentConfig, type AgentId } from "@/utils/agents";
 import type { EnrichedSkill } from "@/utils/suggest";
 import type { AceConfig } from "@/utils/config";
@@ -87,22 +88,26 @@ export async function installSkills(
       // Clone into temp directory first
       const tempDir = path.join(centralSkillsDir, `.temp-${skill.name}`);
 
-      const cloneProc = Bun.spawn(
-        ["git", "clone", "--depth", "1", repoUrl, tempDir],
-        {
-          stdout: "pipe",
-          stderr: "pipe",
-        },
-      );
+      const exitCode = await new Promise<number>((resolve) => {
+        const cloneProc = spawn("git", ["clone", "--depth", "1", repoUrl, tempDir], {
+          stdio: ["ignore", "pipe", "pipe"],
+        });
 
-      const exitCode = await cloneProc.exited;
+        let stderr = "";
+        cloneProc.stderr?.on("data", (data) => {
+          stderr += data.toString();
+        });
+
+        cloneProc.on("close", (code) => {
+          if (code !== 0 && stderr) {
+            s.stop(`Failed to clone ${skill.name}`);
+            p.log.error(stderr.trim());
+          }
+          resolve(code || 0);
+        });
+      });
 
       if (exitCode !== 0) {
-        const stderr = await new Response(cloneProc.stderr).text();
-        s.stop(`Failed to clone ${skill.name}`);
-        if (stderr) {
-          p.log.error(stderr.trim());
-        }
         continue;
       }
 
